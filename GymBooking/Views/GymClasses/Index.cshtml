@@ -1,0 +1,99 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using GymBooking.Services
+@model IEnumerable<GymBooking.Models.GymClass>
+@inject IBookingService BookingService;
+@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> UserManager
+@inject IMessageToUserService MessageToUser;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@MessageToUser.ShowMessage()</h1>
+
+
+@if (User.IsInRole("Admin") && @MessageToUser.ShowMessage()== "Overview Classes")
+{
+    <p>
+        <a asp-action="Create">Create New Class</a>
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FormattedDurationWithoutSeconds)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+
+                @if (User.Identity is { IsAuthenticated: true })
+                {
+                    var currentUser = UserManager.GetUserAsync(User);
+                    var isBooked = (currentUser.Result != null && await BookingService.IsMemberBooked(currentUser.Result.Id, item.Id));
+                    <td>
+                        @if (item.StartTime >= DateTime.Now)
+                        {
+                            
+                            <a asp-action="BookingToggle" asp-route-id="@item.Id">
+
+                                @if (isBooked)
+                                {
+                                    <text>Unbook</text>
+                                }
+                                else
+                                {
+                                    <text>Book</text>
+                                }
+                            </a> <span>|</span>
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> <span>|</span>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                            <span>|</span>
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            <span>|</span>
+
+                        }
+
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
