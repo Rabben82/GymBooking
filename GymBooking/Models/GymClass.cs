@@ -24,6 +24,7 @@ namespace GymBooking.Models
         public string Description { get; set; } = string.Empty;
         public string FormattedDurationWithoutSeconds => $"{(int)Duration.TotalHours:D2}:{Duration.Minutes:D2}";
         //Navigation Property
+        [Display(Name = "Attending")]
         public ICollection<ApplicationUserGymClass> AttendingMembers{ get; set; } = new List<ApplicationUserGymClass>();
     }
 }

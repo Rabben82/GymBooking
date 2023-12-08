@@ -3,16 +3,10 @@
 @{
     ViewData["Title"] = "Delete";
 }
-<div class="text-center">
-
-    <h1>Delete this class?</h1>
-</div>
-
-<div class="centerContent">
-    <img src="/Images/Gym3.png" alt="Gym Image" />
-    <dl class="row centerContent">
+<div class="center-content position-relative">
+    <dl class="row center-content">
         <div class="col-sm-12 text-center">
-            <dt>
+            <dt class="uppercase-label">
                 @Html.DisplayNameFor(model => model.Name)
             </dt>
             <dd>
@@ -20,7 +14,7 @@
             </dd>
         </div>
         <div class="col-sm-12 text-center">
-            <dt>
+            <dt class="uppercase-label">
                 @Html.DisplayNameFor(model => model.StartTime)
             </dt>
             <dd>
@@ -28,7 +22,7 @@
             </dd>
         </div>
         <div class="col-sm-12 text-center">
-            <dt>
+            <dt class="uppercase-label">
                 @Html.DisplayNameFor(model => model.Duration)
             </dt>
             <dd>
@@ -36,7 +30,7 @@
             </dd>
         </div>
         <div class="col-sm-12 text-center">
-            <dt>
+            <dt class="uppercase-label" >
                 @Html.DisplayNameFor(model => model.Description)
             </dt>
             <dd>

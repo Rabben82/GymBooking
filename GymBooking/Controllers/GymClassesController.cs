@@ -73,6 +73,8 @@ namespace GymBooking.Controllers
                 return NotFound("Id is not found");
             }
 
+            messageToUserService.AddMessage("DETAILS");
+
             var gymClass = await _context.GymClasses
                 .Include(m => m.AttendingMembers)
                 .ThenInclude(a => a.ApplicationUser)
@@ -90,6 +92,8 @@ namespace GymBooking.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
+            messageToUserService.AddMessage("CREATE NEW CLASS");
+
             return View();
         }
 
@@ -117,6 +121,7 @@ namespace GymBooking.Controllers
             {
                 return NotFound();
             }
+            messageToUserService.AddMessage("EDIT GYM CLASS");
 
             var gymClass = await _context.GymClasses.FindAsync(id);
             if (gymClass == null)
@@ -170,6 +175,8 @@ namespace GymBooking.Controllers
             {
                 return NotFound();
             }
+
+            messageToUserService.AddMessage("DELETE THIS CLASS?");
 
             var gymClass = await _context.GymClasses
                 .FirstOrDefaultAsync(m => m.Id == id);

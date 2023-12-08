@@ -21,15 +21,19 @@ body {
     margin-bottom: 60px;
 }
 
-.centerContent {
+.center-content {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.textPadding {
+    padding-bottom: 10px;
+}
+
 /* Shared styles for positioned elements */
-.centerContent dl,
-.centerContent .col-md-3,
+/*.centerContent dl,
+.centerContent .col-md-3,*/
 .table-overlay {
     position: absolute;
     top: 50%;
@@ -58,4 +62,57 @@ img {
 /* Optional: Add margin to navigation */
 .navMargin {
     margin-left: 16%;
+}
+
+.textFormat {
+    text-align: end;
+    padding-bottom: 0.5rem;
+}
+
+.row > * {
+    padding: 0.2rem;
+    margin: 0;
+}
+
+.uppercase-label {
+    text-transform: uppercase;
+}
+
+.img-logo {
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.navbar-nav a, #exclude-transition {
+    transition: transform 0.3s ease-in-out;
+    font-weight: normal; /* Default font-weight */
+    border-bottom: 1px solid transparent; /* Set a transparent border by default */
+}
+
+.navbar-nav a:hover {
+    transform: scale(1.1); /* Adjust the scale factor as needed */
+    border-top: 1px black;
+    font-weight: bold;
+    border-bottom: 1px solid black; /* Set the border color on hover */
+}
+#exclude-transition {
+    transform: scale(1);
+}
+.navbar-color {
+    background: #0F0F0F;
+}
+
+.navbar {
+    padding: 0;
+}
+.nav-link {
+    color: white;
+}
+a {
+    color: #005B41;
+    text-decoration: none;
+}
+.btn-color {
+    background: #005B41;
+    color: white;
 }

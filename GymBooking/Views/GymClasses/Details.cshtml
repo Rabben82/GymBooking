@@ -3,50 +3,45 @@
 @{
     ViewData["Title"] = "Details";
 }
-<div class="text-center">
-    <h1>Details</h1>
-</div>
 
+<div class="center-content position-relative">
 
-<div class="centerContent">
-    <img src="/Images/Gym3.png" alt="Gym Image" />
-
-    <dl class="row centerContent">
+    <dl class="row center-content">
         <div class="col-sm-12 text-center">
-            <dt >
-                @Html.DisplayNameFor(model => model.Name)<text>:</text>
+            <dt class="uppercase-label">
+                @Html.DisplayNameFor(model => model.Name)
             </dt>
-            <dd >
+            <dd>
                 @Html.DisplayFor(model => model.Name)
             </dd>
         </div>
         <div class="col-sm-12 text-center">
-            <dt >
-                @Html.DisplayNameFor(model => model.StartTime)<text>:</text>
+            <dt class="uppercase-label">
+                @Html.DisplayNameFor(model => model.StartTime)
             </dt>
-            <dd >
+            <dd>
                 @Html.DisplayFor(model => model.StartTime)
             </dd>
         </div>
         <div class="col-sm-12 text-center">
-            <dt >
-                @Html.DisplayNameFor(model => model.Duration)<text>:</text>
+            <dt class="uppercase-label">
+                @Html.DisplayNameFor(model => model.Duration)
             </dt>
-            <dd >
+            <dd>
                 @Html.DisplayFor(model => model.FormattedDurationWithoutSeconds)<text>h</text>
             </dd>
         </div>
         <div class="col-sm-12 text-center">
-            <dt >
-                @Html.DisplayNameFor(model => model.Description)<text>:</text>
+            <dt class="uppercase-label">
+                @Html.DisplayNameFor(model => model.Description)
             </dt>
-            <dd >
+            <dd>
                 @Html.DisplayFor(model => model.Description)
             </dd>
         </div>
-        
-        <dt class="col-sm-12 text-center">
-            @Html.DisplayNameFor(model => model.AttendingMembers) 
+
+        <dt class="col-sm-12 text-center uppercase-label">
+            @Html.DisplayNameFor(model => model.AttendingMembers)
         </dt>
         <dd class="col-sm-12 text-center">
             @foreach (var member in Model.AttendingMembers)

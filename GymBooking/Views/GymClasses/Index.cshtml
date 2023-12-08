@@ -9,17 +9,14 @@
     ViewData["Title"] = "Index";
 }
 
-<h1 class="text-center">@MessageToUser.ShowMessage().ToUpper()</h1>
 
+<div class="center-content position-relative">
 
-<div class="centerContent position-relative">
-    <img src="Images/Gym3.png" alt="Gym Image" />
-
-    <div class="table-overlay">
+    <div>
         @if (User.IsInRole("Admin") && @MessageToUser.ShowMessage() == "Overview Classes")
         {
             <p>
-                <a asp-action="Create">Create New Class</a>
+                <a asp-action="Create" class="btn btn-color">Create New Class</a>
             </p>
         }
         <table class="table">

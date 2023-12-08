@@ -1,4 +1,6 @@
 ﻿@using System.Security.Claims
+@using GymBooking.Services
+@inject IMessageToUserService MessageToUser;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +14,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
+            <div class="container-fluid navbar-color">
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -20,21 +22,19 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between navMargin">
 
-
-
                     <ul class="navbar-nav flex-grow-1 justify-content-center">
                         @if (User.Identity is { IsAuthenticated: true })
                         {
-                            <a class="nav-link text-dark" asp-area="" asp-controller="GymClasses" asp-action="Index">Home</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="GymClasses" asp-action="Index">HOME</a>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="GymClasses" asp-action="Index"
+                                <a class="nav-link text-white" asp-area="" asp-controller="GymClasses" asp-action="Index"
                                    asp-route-showBooked="true"
-                                   asp-route-userId="@User.FindFirstValue(ClaimTypes.NameIdentifier)">My Booked Classes</a>
+                                   asp-route-userId="@User.FindFirstValue(ClaimTypes.NameIdentifier)">MY BOOKED CLASSES</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="GymClasses" asp-action="Index"
+                                <a class="nav-link text-white" asp-area="" asp-controller="GymClasses" asp-action="Index"
                                    asp-route-showHistory="true"
-                                   asp-route-userId="@User.FindFirstValue(ClaimTypes.NameIdentifier)">Booking History</a>
+                                   asp-route-userId="@User.FindFirstValue(ClaimTypes.NameIdentifier)">BOOKING HISTORY</a>
                             </li>
                         }
                     </ul>
@@ -45,14 +45,25 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+
+            <!-- Add the image and overlay styling here -->
+            <div class="center-content position-relative">
+
+                <img src="/Images/Gym3.png" alt="Gym Image" class="img-logo" />
+
+                <!-- Rest of the content with overlay styling -->
+                <div class="table-overlay">
+
+                    <h3 class="text-center">@MessageToUser.ShowMessage().ToUpper()</h3>
+                    <hr />
+                    @RenderBody()
+                </div>
+            </div>
         </main>
     </div>
 
-    <footer class="border-top footer text-muted text-center">
-        <div class="container">
-            &copy; 2023 - GymBooking - @* <a asp-area="" asp-controller="GymClasses" asp-action="Privacy">Privacy</a> *@
-        </div>
+    <footer class="text-muted text-center">
+        &copy; 2023 - GymBooking - @* <a asp-area="" asp-controller="GymClasses" asp-action="Privacy">Privacy</a> *@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
