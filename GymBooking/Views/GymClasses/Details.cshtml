@@ -3,41 +3,52 @@
 @{
     ViewData["Title"] = "Details";
 }
+<div class="text-center">
+    <h1>Details</h1>
+</div>
 
-<h1>Details</h1>
 
-<div>
-    <h4>GymClass</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
+<div class="centerContent">
+    <img src="/Images/Gym3.png" alt="Gym Image" />
+
+    <dl class="row centerContent">
+        <div class="col-sm-12 text-center">
+            <dt >
+                @Html.DisplayNameFor(model => model.Name)<text>:</text>
+            </dt>
+            <dd >
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+        </div>
+        <div class="col-sm-12 text-center">
+            <dt >
+                @Html.DisplayNameFor(model => model.StartTime)<text>:</text>
+            </dt>
+            <dd >
+                @Html.DisplayFor(model => model.StartTime)
+            </dd>
+        </div>
+        <div class="col-sm-12 text-center">
+            <dt >
+                @Html.DisplayNameFor(model => model.Duration)<text>:</text>
+            </dt>
+            <dd >
+                @Html.DisplayFor(model => model.FormattedDurationWithoutSeconds)<text>h</text>
+            </dd>
+        </div>
+        <div class="col-sm-12 text-center">
+            <dt >
+                @Html.DisplayNameFor(model => model.Description)<text>:</text>
+            </dt>
+            <dd >
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+        </div>
+        
+        <dt class="col-sm-12 text-center">
+            @Html.DisplayNameFor(model => model.AttendingMembers) 
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StartTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StartTime)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Duration)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FormattedDurationWithoutSeconds)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AttendingMembers)
-        </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-12 text-center">
             @foreach (var member in Model.AttendingMembers)
             {
                 <div>
@@ -45,8 +56,8 @@
                 </div>
             }
         </dd>
+        <div class="text-center">
+            <a asp-action="Index">Back to List</a>
+        </div>
     </dl>
-</div>
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>

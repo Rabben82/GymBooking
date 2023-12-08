@@ -9,6 +9,7 @@ namespace GymBooking.Models
         public int Id { get; set; }
         [Required(ErrorMessage = "Name field is required")]
         [StringLength(30, MinimumLength = 2 , ErrorMessage = "The {0} must be between {2} and {1} characters long.")]
+        [Display(Name = "Class")]
         public string Name { get; set; } = string.Empty;
         [Required(ErrorMessage = "Start time is required")]
         [Display(Name = "Start time")]
