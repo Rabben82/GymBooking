@@ -91,13 +91,10 @@ img {
 
 .navbar-nav a:hover {
     transform: scale(1.1); /* Adjust the scale factor as needed */
-    border-top: 1px black;
     font-weight: bold;
     border-bottom: 1px solid black; /* Set the border color on hover */
 }
-#exclude-transition {
-    transform: scale(1);
-}
+
 .navbar-color {
     background: #0F0F0F;
 }
@@ -105,14 +102,79 @@ img {
 .navbar {
     padding: 0;
 }
-.nav-link {
-    color: white;
-}
+
 a {
     color: #005B41;
     text-decoration: none;
+    border-bottom: 1px solid transparent; /* Set a transparent border by default */
+    transition: transform 0.3s ease-in-out, border-bottom 0.3s ease-in-out;
 }
+
+a:hover {
+    border-bottom-color: black; /* Set the border color on hover */
+    color: black;
+}
+
 .btn-color {
-    background: #005B41;
+    background: #5C8374;
     color: white;
+}
+
+.btn-padding {
+    margin-top: 0.3rem;
+}
+/* Set the default text color for links */
+.navbar-nav .text-white {
+    color: white !important; /* Use !important to ensure the style takes precedence */
+    transition: color 0.3s ease-in-out; /* Add a smooth transition for the color change */
+}
+
+    /* Change the text color when hovering over links */
+    .navbar-nav .text-white:hover {
+        color: rgba(92, 131, 116, 0.8) !important; /* Set your desired hover color */
+    }
+
+.text-user {
+    color: #9EC8B9 !important;
+}
+
+#text-greeting {
+    color: whitesmoke;
+}
+
+a#email.nav-link.active,
+a#change-password.nav-link.active,
+a#two-factor.nav-link.active,
+a#personal-data.nav-link.active,
+a#profile.nav-link.active,
+button#change-email-button,
+a#enable-authenticator{
+    background: #5C8374;
+    color: white;
+    width: fit-content;
+}
+
+button#change-email-button:hover, 
+a#enable-authenticator:hover {
+    color: black;
+}
+
+#email,
+#profile,
+#change-password,
+#external-login,
+#two-factor,
+#personal-data {
+    color: #005B41;
+}
+
+#email:hover,
+#profile:hover,
+#change-password:hover,
+#external-login:hover,
+#two-factor:hover,
+#personal-data:hover {
+    color: black !important;
+    border-bottom: 1px solid black;
+    width: fit-content;
 }

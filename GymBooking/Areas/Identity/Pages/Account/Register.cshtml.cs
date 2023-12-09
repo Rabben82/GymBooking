@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
+using GymBooking.Services;
 
 namespace GymBooking.Areas.Identity.Pages.Account
 {
@@ -30,6 +31,7 @@ namespace GymBooking.Areas.Identity.Pages.Account
         private readonly IUserStore<ApplicationUser> _userStore;
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
+        private readonly IMessageToUserService messageToUserService;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
@@ -37,6 +39,7 @@ namespace GymBooking.Areas.Identity.Pages.Account
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
+            IMessageToUserService messageToUserService,
             IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -44,6 +47,7 @@ namespace GymBooking.Areas.Identity.Pages.Account
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
+            this.messageToUserService = messageToUserService;
             _emailSender = emailSender;
         }
 
@@ -115,6 +119,7 @@ namespace GymBooking.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            messageToUserService.AddMessage("CREATE ACCOUNT");
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using GymBooking.Models;
+using GymBooking.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -22,11 +23,13 @@ namespace GymBooking.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IMessageToUserService messageToUser;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, IMessageToUserService messageToUser)
         {
             _signInManager = signInManager;
             _logger = logger;
+            this.messageToUser = messageToUser;
         }
 
         /// <summary>
@@ -87,11 +90,12 @@ namespace GymBooking.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
-
+            messageToUser.AddMessage("LOG IN");
             returnUrl ??= Url.Content("~/");
 
             // Clear the existing external cookie to ensure a clean login process

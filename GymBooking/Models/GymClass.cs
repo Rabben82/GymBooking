@@ -20,6 +20,7 @@ namespace GymBooking.Models
         public TimeSpan Duration { get; set; }
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd-HH:mm}", ApplyFormatInEditMode = true)]
+        [Display(Name = "End Time")]
         public DateTime EndTime => StartTime + Duration;
         public string Description { get; set; } = string.Empty;
         public string FormattedDurationWithoutSeconds => $"{(int)Duration.TotalHours:D2}:{Duration.Minutes:D2}";
