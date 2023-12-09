@@ -1,6 +1,6 @@
-﻿using GymBooking.Data;
+﻿using GymClass.Data.Data;
 
-namespace GymBooking.Extensions
+namespace GymBooking.WebApp.Extensions
 {
     public static class DbSeedExtension
     {

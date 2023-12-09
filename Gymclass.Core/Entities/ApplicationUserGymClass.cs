@@ -1,4 +1,5 @@
-﻿namespace GymBooking.Models
+﻿
+namespace GymClass.BusinessLogic.Entities
 {
     public class ApplicationUserGymClass
     {

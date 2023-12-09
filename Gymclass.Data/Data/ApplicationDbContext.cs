@@ -1,9 +1,9 @@
-﻿using GymBooking.Models;
+﻿using GymClass.BusinessLogic.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace GymBooking.Data
+namespace GymClass.Data.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
     {
@@ -12,7 +12,7 @@ namespace GymBooking.Data
         {
         }
 
-        public DbSet<GymClass> GymClasses { get; set; } = default!;
+        public DbSet<GymClass.BusinessLogic.Entities.GymClass> GymClasses { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

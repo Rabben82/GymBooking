@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymBooking", "GymBooking\GymBooking.csproj", "{34A6AEA8-04C7-4949-BCD7-F10A0471C2BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymBooking.WebApp", "GymBooking\GymBooking.WebApp.csproj", "{34A6AEA8-04C7-4949-BCD7-F10A0471C2BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymClass.BusinessLogic", "Gymclass.Core\GymClass.BusinessLogic.csproj", "{F03674DF-83B5-4EDB-A1A0-506B9876A65C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymClass.Data", "Gymclass.Data\GymClass.Data.csproj", "{70EFB2A3-8EF5-4922-85CE-7C3BFBF568A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{34A6AEA8-04C7-4949-BCD7-F10A0471C2BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34A6AEA8-04C7-4949-BCD7-F10A0471C2BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34A6AEA8-04C7-4949-BCD7-F10A0471C2BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F03674DF-83B5-4EDB-A1A0-506B9876A65C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F03674DF-83B5-4EDB-A1A0-506B9876A65C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F03674DF-83B5-4EDB-A1A0-506B9876A65C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F03674DF-83B5-4EDB-A1A0-506B9876A65C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70EFB2A3-8EF5-4922-85CE-7C3BFBF568A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70EFB2A3-8EF5-4922-85CE-7C3BFBF568A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70EFB2A3-8EF5-4922-85CE-7C3BFBF568A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70EFB2A3-8EF5-4922-85CE-7C3BFBF568A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

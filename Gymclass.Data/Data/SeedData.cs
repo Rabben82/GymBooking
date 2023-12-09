@@ -1,8 +1,8 @@
-﻿using GymBooking.Models;
+﻿using GymClass.BusinessLogic.Entities;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace GymBooking.Data
+namespace GymClass.Data.Data
 {
     public class SeedData
     {

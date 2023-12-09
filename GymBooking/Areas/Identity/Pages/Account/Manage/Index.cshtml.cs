@@ -2,16 +2,13 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using GymBooking.Models;
+using GymClass.BusinessLogic.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace GymBooking.Areas.Identity.Pages.Account.Manage
+namespace GymBooking.WebApp.Areas.Identity.Pages.Account.Manage
 {
     public class IndexModel : PageModel
     {

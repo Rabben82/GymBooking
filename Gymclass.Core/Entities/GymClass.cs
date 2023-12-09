@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using GymBooking.Validation;
 
-namespace GymBooking.Models
+namespace GymClass.BusinessLogic.Entities
 {
     public class GymClass
     {

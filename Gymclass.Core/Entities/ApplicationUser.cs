@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
-namespace GymBooking.Models
+namespace GymClass.BusinessLogic.Entities
 {
     public class ApplicationUser : IdentityUser
     {

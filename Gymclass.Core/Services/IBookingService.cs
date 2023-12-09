@@ -1,4 +1,4 @@
-﻿namespace GymBooking.Services;
+﻿namespace GymClass.BusinessLogic.Services;
 
 public interface IBookingService
 {

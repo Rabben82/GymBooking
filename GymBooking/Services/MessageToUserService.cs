@@ -1,4 +1,6 @@
-﻿namespace GymBooking.Services
+﻿using GymClass.BusinessLogic.Services;
+
+namespace GymBooking.WebApp.Services
 {
     public class MessageToUserService : IMessageToUserService
     {
@@ -6,11 +8,6 @@
 
         public void AddMessage(string message)
         {
-            if (string.IsNullOrWhiteSpace(message))
-            {
-                throw new ArgumentException("The message can't be null or empty or consist only of white spaces", nameof(message));
-            }
-
             Message = message;
         }
 

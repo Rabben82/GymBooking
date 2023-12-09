@@ -1,6 +1,7 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using GymBooking.Services
-@model IEnumerable<GymBooking.Models.GymClass>
+﻿@using GymClass.BusinessLogic.Entities
+@using GymClass.BusinessLogic.Services
+@using GymBooking.WebApp.Services
+@model IEnumerable<GymClass>
 @inject IBookingService BookingService;
 @inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> UserManager
 @inject IMessageToUserService MessageToUser;

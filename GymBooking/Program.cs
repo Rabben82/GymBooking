@@ -1,7 +1,10 @@
-using GymBooking.Data;
-using GymBooking.Extensions;
-using GymBooking.Models;
-using GymBooking.Services;
+using GymBooking.WebApp.Extensions;
+using GymBooking.WebApp.Services;
+using GymClass.BusinessLogic.Entities;
+using GymClass.BusinessLogic.Repositories;
+using GymClass.BusinessLogic.Services;
+using GymClass.Data.Data;
+using GymClass.Data.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,12 +22,14 @@ namespace GymBooking
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+
             builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddScoped<IBookingService, BookingService>();
             builder.Services.AddScoped<IMessageToUserService, MessageToUserService>();
+            builder.Services.AddScoped<IGymClassRepository, GymClassRepository>();
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
@@ -40,7 +45,7 @@ namespace GymBooking
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
-               
+
             }
 
             app.UseHttpsRedirection();
