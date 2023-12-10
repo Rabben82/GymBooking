@@ -30,8 +30,9 @@ namespace GymBooking
             builder.Services.AddScoped<IBookingService, BookingService>();
             builder.Services.AddScoped<IMessageToUserService, MessageToUserService>();
             builder.Services.AddScoped<IGymClassRepository, GymClassRepository>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddControllersWithViews();
-
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

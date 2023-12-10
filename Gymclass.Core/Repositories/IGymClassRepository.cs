@@ -1,9 +1,15 @@
-﻿namespace GymClass.BusinessLogic.Repositories;
+﻿using GymClass.BusinessLogic.Entities;
+
+namespace GymClass.BusinessLogic.Repositories;
 
 public interface IGymClassRepository
 {
-    Task<List<BusinessLogic.Entities.GymClass>> GetAsync(string userId, bool showHistory = false, bool showBooked = false);
-    Task<BusinessLogic.Entities.GymClass> GetAsync(int id, string message="");
-    public void Remove(BusinessLogic.Entities.GymClass gymClass);
-    public void Update(BusinessLogic.Entities.GymClass gymClass);
+    public Task<List<Entities.GymClass>> GetAsync(string userId, bool showHistory = false, bool showBooked = false);
+    public Task<Entities.GymClass> GetAsync(int id, string message="");
+    public void Remove(Entities.GymClass gymClass);
+    public void Update(Entities.GymClass gymClass);
+    public void Add(Entities.GymClass gymClass);
+    public Task<Entities.GymClass> BookingToggle(int? id, ApplicationUser user);
+    public void AddMessageToUser(string message);
+    public bool Any(int? id);
 }

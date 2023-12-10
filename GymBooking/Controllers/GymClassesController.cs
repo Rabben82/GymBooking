@@ -1,7 +1,5 @@
 ﻿using GymClass.BusinessLogic.Entities;
 using GymClass.BusinessLogic.Repositories;
-using GymClass.BusinessLogic.Services;
-using GymClass.Data.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,26 +11,22 @@ namespace GymBooking.WebApp.Controllers
     [Authorize]
     public class GymClassesController : Controller
     {
-        private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IMessageToUserService messageToUserService;
-        private readonly IGymClassRepository gymClassRepository;
+        private readonly IUnitOfWork uow;
         // private IQueryable<GymClass> getClasses;
 
-        public GymClassesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, IMessageToUserService messageToUserService, IGymClassRepository gymClassRepository)
+        public GymClassesController(UserManager<ApplicationUser> userManager, IUnitOfWork uow)
         {
-            _context = context;
             this.userManager = userManager;
-            this.messageToUserService = messageToUserService;
-            this.gymClassRepository = gymClassRepository;
+            this.uow = uow;
         }
         [AllowAnonymous]
         // GET: GymClasses
         public async Task<IActionResult> Index(string userId, bool showHistory = false, bool showBooked = false)
         {
-            if (string.IsNullOrWhiteSpace(userId)) NotFound("UserId not found");
+            if (string.IsNullOrWhiteSpace(userId)) NotFound("User not found");
 
-            return View(await gymClassRepository.GetAsync(userId, showHistory, showBooked));
+            return View(await uow.GymClassRepository.GetAsync(userId, showHistory, showBooked));
         }
 
         // GET: GymClasses/Details/5
@@ -43,14 +37,14 @@ namespace GymBooking.WebApp.Controllers
                 return NotFound("Id is not found");
             }
 
-            return View(await gymClassRepository.GetAsync((int)id, message));
+            return View(await uow.GymClassRepository.GetAsync((int)id, message));
         }
 
         // GET: GymClasses/Create
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
-            messageToUserService.AddMessage("CREATE NEW CLASS");
+            uow.GymClassRepository.AddMessageToUser("CREATE NEW CLASS");
 
             return View();
         }
@@ -64,8 +58,8 @@ namespace GymBooking.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(gymClass);
-                await _context.SaveChangesAsync();
+                uow.GymClassRepository.Add(gymClass);
+                await uow.SaveCompleteAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(gymClass);
@@ -80,7 +74,7 @@ namespace GymBooking.WebApp.Controllers
                 return NotFound();
             }
 
-            return View(await gymClassRepository.GetAsync((int)id, message));
+            return View(await uow.GymClassRepository.GetAsync((int)id, message));
         }
 
         // POST: GymClasses/Edit/5
@@ -100,8 +94,8 @@ namespace GymBooking.WebApp.Controllers
             {
                 try
                 {
-                    gymClassRepository.Update(gymClass);
-                    await _context.SaveChangesAsync();
+                    uow.GymClassRepository.Update(gymClass);
+                    await uow.SaveCompleteAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -128,7 +122,7 @@ namespace GymBooking.WebApp.Controllers
                 return NotFound();
             }
 
-            return View(await gymClassRepository.GetAsync((int)id, message));
+            return View(await uow.GymClassRepository.GetAsync((int)id, message));
         }
 
         // POST: GymClasses/Delete/5
@@ -137,52 +131,28 @@ namespace GymBooking.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var gymClass = await gymClassRepository.GetAsync(id);
-            
-            gymClassRepository.Remove(gymClass);
+            var gymClass = await uow.GymClassRepository.GetAsync(id);
 
-            await _context.SaveChangesAsync();
+            uow.GymClassRepository.Remove(gymClass);
+
+            await uow.SaveCompleteAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool GymClassExists(int id)
         {
-            return _context.GymClasses.Any(e => e.Id == id);
+            return uow.GymClassRepository.Any(id);
         }
 
         public async Task<IActionResult> BookingToggle(int? id)
         {
-            if (id == null) return BadRequest("Id of the gym class not found");
-
-            var gymClass = await _context.GymClasses
-                .Include(m => m.AttendingMembers)
-                .FirstOrDefaultAsync(g => g.Id == id);
-
-            if (gymClass == null) return NotFound("Gym class not found");
-
             var currentUser = await userManager.GetUserAsync(User);
 
             if (currentUser == null) return NotFound("No User Found");
 
-            //Is the user already attending
-            var attendingMember = gymClass.AttendingMembers
-                .FirstOrDefault(member => member.ApplicationUserId == currentUser.Id);
+            await uow.GymClassRepository.BookingToggle(id, currentUser);
 
-            if (attendingMember == null)
-            {
-                gymClass.AttendingMembers.Add(new ApplicationUserGymClass
-                {
-                    ApplicationUserId = currentUser.Id,
-                    GymClassId = gymClass.Id
-
-                });
-            }
-            else
-            {
-                gymClass.AttendingMembers.Remove(attendingMember);
-            }
-
-            await _context.SaveChangesAsync();
+            await uow.SaveCompleteAsync();
 
             return RedirectToAction(nameof(Index));
         }
