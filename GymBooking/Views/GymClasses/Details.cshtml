@@ -46,6 +46,7 @@
         <dd class="col-sm-12 text-center">
             @foreach (var member in Model.AttendingMembers)
             {
+               @*  if () break;; *@
                 <div>
                     @Html.DisplayFor(modelItem => member.ApplicationUser.FullName)
                 </div>

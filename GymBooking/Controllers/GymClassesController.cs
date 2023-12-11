@@ -31,9 +31,9 @@ namespace GymBooking.WebApp.Controllers
         // GET: GymClasses/Details/5
         public async Task<IActionResult> Details(int? id, string message ="DETAILS")
         {
-            if (id == null)
+            if (id == null || !GymClassExists((int)id))
             {
-                return NotFound("Id is not found");
+                return RedirectToAction(nameof(Index));
             }
 
             return View(await uow.GymClassRepository.GetAsync((int)id, message));
@@ -68,9 +68,9 @@ namespace GymBooking.WebApp.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id, string message="EDIT GYM CLASS")
         {
-            if (id == null)
+            if (id == null || !GymClassExists((int)id))
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
 
             return View(await uow.GymClassRepository.GetAsync((int)id, message));
