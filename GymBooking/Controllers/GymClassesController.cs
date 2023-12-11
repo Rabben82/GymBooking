@@ -118,7 +118,7 @@ namespace GymBooking.WebApp.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
 
             return View(await uow.GymClassRepository.GetAsync((int)id, message));
@@ -128,9 +128,18 @@ namespace GymBooking.WebApp.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int? id)
         {
-            var gymClass = await uow.GymClassRepository.GetAsync(id);
+            if (id == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            var gymClass = await uow.GymClassRepository.GetAsync((int)id);
+
+            if (gymClass == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
 
             uow.GymClassRepository.Remove(gymClass);
 

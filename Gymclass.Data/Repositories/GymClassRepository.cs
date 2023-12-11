@@ -65,14 +65,8 @@ namespace GymClass.Data.Repositories
                 .ThenInclude(a => a.ApplicationUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (gymClass == null)
-            {
-                // You might log a message, throw an exception, or handle it in a way that suits your application logic.
-                // For example, throw an exception:
-                throw new EntityNotFoundException($"GymClass with id {id} not found");
-            }
 
-            return gymClass;
+            return gymClass!;
         }
 
         public async Task<BusinessLogic.Entities.GymClass> BookingToggle(int? id, ApplicationUser user)
