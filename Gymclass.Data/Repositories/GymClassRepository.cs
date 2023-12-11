@@ -9,8 +9,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GymClass.Data.Repositories
 {
-
-
     public class GymClassRepository : IGymClassRepository
     {
         private readonly ApplicationDbContext context;
@@ -115,7 +113,7 @@ namespace GymClass.Data.Repositories
         public bool Any(int? id)
         {
             if (id == null) throw new EntityNotFoundException("GymClass with id {id} not found");
-            return  context.GymClasses.Any(i => i.Id == id);
+            return context.GymClasses.Any(i => i.Id == id);
         }
 
         public void Remove(BusinessLogic.Entities.GymClass gymClass)
@@ -135,7 +133,7 @@ namespace GymClass.Data.Repositories
 
         public void AddMessageToUser(string message)
         {
-           messageToUserService.AddMessage(message);
+            messageToUserService.AddMessage(message);
         }
     }
 }

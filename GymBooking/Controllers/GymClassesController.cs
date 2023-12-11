@@ -13,7 +13,6 @@ namespace GymBooking.WebApp.Controllers
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IUnitOfWork uow;
-        // private IQueryable<GymClass> getClasses;
 
         public GymClassesController(UserManager<ApplicationUser> userManager, IUnitOfWork uow)
         {

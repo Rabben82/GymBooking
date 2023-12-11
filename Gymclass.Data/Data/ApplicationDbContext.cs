@@ -11,12 +11,9 @@ namespace GymClass.Data.Data
             : base(options)
         {
         }
-
         public DbSet<GymClass.BusinessLogic.Entities.GymClass> GymClasses { get; set; } = default!;
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            
             //make composite key
             builder.Entity<ApplicationUserGymClass>()
                 .HasKey(t => new { t.ApplicationUserId, t.GymClassId });
@@ -26,13 +23,5 @@ namespace GymClass.Data.Data
 
             base.OnModelCreating(builder);
         }
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    if (!optionsBuilder.IsConfigured)
-        //    {
-        //        optionsBuilder.UseSqlServer("DefaultConnection",
-        //            b => b.MigrationsAssembly("GymClass.Data"));
-        //    }
-        //}
     }
 }
