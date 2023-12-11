@@ -11,7 +11,7 @@ namespace GymClass.Data.Data
             : base(options)
         {
         }
-        public DbSet<GymClass.BusinessLogic.Entities.GymClass> GymClasses { get; set; } = default!;
+        public DbSet<BusinessLogic.Entities.GymClass> GymClasses { get; set; } = default!;
         protected override void OnModelCreating(ModelBuilder builder)
         {
             //make composite key

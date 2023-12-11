@@ -20,7 +20,8 @@ namespace GymBooking.WebApp.Services
         public async Task<bool> IsMemberBooked(string userId, int gymClassId)
         {
             var isBooked = await context.GymClasses
-                .AnyAsync(g => g.Id == gymClassId && g.AttendingMembers.Any(m => m.ApplicationUserId == userId));
+                .AnyAsync(g => g.Id == gymClassId && g.AttendingMembers
+                    .Any(m => m.ApplicationUserId == userId));
             return isBooked;
         }
     }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GymBooking.Validation
+namespace GymClass.BusinessLogic.Validation
 {
     public class MinDateValidation : ValidationAttribute
     {

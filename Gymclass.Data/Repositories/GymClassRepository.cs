@@ -62,6 +62,31 @@ namespace GymClass.Data.Repositories
 
             return gymClass!;
         }
+        public bool Any(int? id)
+        {
+            if (id == null) throw new EntityNotFoundException("GymClass with id {id} not found");
+            return context.GymClasses.Any(i => i.Id == id);
+        }
+
+        public void Remove(BusinessLogic.Entities.GymClass gymClass)
+        {
+            context.Remove(gymClass);
+        }
+
+        public void Update(BusinessLogic.Entities.GymClass gymClass)
+        {
+            context.Update(gymClass);
+        }
+
+        public void Add(BusinessLogic.Entities.GymClass gymClass)
+        {
+            context.Add(gymClass);
+        }
+
+        public void AddMessageToUser(string message)
+        {
+            messageToUserService.AddMessage(message);
+        }
 
         public async Task<BusinessLogic.Entities.GymClass> BookingToggle(int? id, ApplicationUser user)
         {
@@ -71,11 +96,11 @@ namespace GymClass.Data.Repositories
                 .Include(m => m.AttendingMembers)
                 .FirstOrDefaultAsync(g => g.Id == id);
 
-            if (gymClass == null) throw new EntityNotFoundException($"GymClass with id {id} not found");
+            if (gymClass == null) throw new EntityNotFoundException($"GymClass entity not found");
 
             var currentUser = user;
 
-            if (currentUser == null) throw new EntityNotFoundException($"GymClass with id {id} not found");
+            if (currentUser == null) throw new EntityNotFoundException($"Current user entity not found");
 
             //Is the user already attending
             var attendingMember = gymClass.AttendingMembers
@@ -114,30 +139,6 @@ namespace GymClass.Data.Repositories
 
         }
  
-        public bool Any(int? id)
-        {
-            if (id == null) throw new EntityNotFoundException("GymClass with id {id} not found");
-            return context.GymClasses.Any(i => i.Id == id);
-        }
-
-        public void Remove(BusinessLogic.Entities.GymClass gymClass)
-        {
-            context.Remove(gymClass);
-        }
-
-        public void Update(BusinessLogic.Entities.GymClass gymClass)
-        {
-            context.Update(gymClass);
-        }
-
-        public void Add(BusinessLogic.Entities.GymClass gymClass)
-        {
-            context.Add(gymClass);
-        }
-
-        public void AddMessageToUser(string message)
-        {
-            messageToUserService.AddMessage(message);
-        }
+       
     }
 }

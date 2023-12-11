@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using GymBooking.Validation;
+using GymClass.BusinessLogic.Validation;
 
 namespace GymClass.BusinessLogic.Entities
 {
