@@ -13,7 +13,7 @@ namespace GymBooking.WebApp.Extensions
 
             try
             {
-                await SeedData.Init(db, serviceProvider);
+                await SeedData.InitAsync(db, serviceProvider);
             }
             catch (Exception e)
             {

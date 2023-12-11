@@ -26,5 +26,13 @@ namespace GymClass.Data.Data
 
             base.OnModelCreating(builder);
         }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    if (!optionsBuilder.IsConfigured)
+        //    {
+        //        optionsBuilder.UseSqlServer("DefaultConnection",
+        //            b => b.MigrationsAssembly("GymClass.Data"));
+        //    }
+        //}
     }
 }
