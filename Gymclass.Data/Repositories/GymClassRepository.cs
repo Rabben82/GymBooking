@@ -5,7 +5,6 @@ using GymClass.BusinessLogic.Repositories;
 using GymClass.BusinessLogic.Services;
 using GymClass.Data.Data;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -17,7 +16,7 @@ namespace GymClass.Data.Repositories
         private readonly IMessageToUserService messageToUserService;
         private readonly IHttpContextAccessor httpContextAccessor;
 
-        public GymClassRepository(ApplicationDbContext context, IMessageToUserService messageToUserService, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor)
+        public GymClassRepository(ApplicationDbContext context, IMessageToUserService messageToUserService, IHttpContextAccessor httpContextAccessor)
         {
             this.context = context;
             this.messageToUserService = messageToUserService;
