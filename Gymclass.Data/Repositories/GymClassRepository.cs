@@ -104,6 +104,20 @@ namespace GymClass.Data.Repositories
             return gymClass;
         }
 
+        public async Task<IList<BusinessLogic.Entities.GymClass>> MyBookingHistory(string user)
+        {
+            var currentUser = user;
+
+            var myBookingHistory = context.Users
+                .Where(u => u.Id == currentUser)
+                .SelectMany(g => g.AttendingClasses)
+                .Select(gy => gy.GymClass)
+                .Where(d => d.StartTime < DateTime.Now);
+
+            return await myBookingHistory.ToListAsync();
+
+        }
+
         public bool Any(int? id)
         {
             if (id == null) throw new EntityNotFoundException("GymClass with id {id} not found");

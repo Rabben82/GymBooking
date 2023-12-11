@@ -164,5 +164,17 @@ namespace GymBooking.WebApp.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> MyBookingHistory()
+        {
+            var currentUser = userManager.GetUserId(User);
+
+            if (currentUser == null) return NotFound("No User Found");
+
+            var myBookings = await uow.GymClassRepository.MyBookingHistory(currentUser);
+
+            return View(myBookings);
+        }
     }
 }
+    

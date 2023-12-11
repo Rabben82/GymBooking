@@ -1,7 +1,7 @@
-﻿@using GymClass.BusinessLogic.Entities
+﻿@model System.Collections.Generic.IList<GymClass>
+
 @using GymClass.BusinessLogic.Services
-@using GymBooking.WebApp.Services
-@model IEnumerable<GymClass>
+@using GymClass.BusinessLogic.Entities
 @inject IBookingService BookingService;
 @inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> UserManager
 @inject IMessageToUserService MessageToUser;
@@ -98,4 +98,3 @@
         <partial name ="_IndexPartial"/>
     </div>
 </div>
-

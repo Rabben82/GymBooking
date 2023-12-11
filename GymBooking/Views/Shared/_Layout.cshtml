@@ -33,9 +33,9 @@
                                    asp-route-userId="@User.FindFirstValue(ClaimTypes.NameIdentifier)">MY BOOKED CLASSES</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-navbar" asp-area="" asp-controller="GymClasses" asp-action="Index"
+                                <a class="nav-link text-navbar" asp-area="" asp-controller="GymClasses" asp-action="MyBookingHistory"
                                    asp-route-showHistory="true"
-                                   asp-route-userId="@User.FindFirstValue(ClaimTypes.NameIdentifier)">BOOKING HISTORY</a>
+                                   asp-route-userId="@User.FindFirstValue(ClaimTypes.NameIdentifier)">MY BOOKING HISTORY</a>
                             </li>
                         }
                     </ul>
