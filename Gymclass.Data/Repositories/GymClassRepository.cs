@@ -13,13 +13,11 @@ namespace GymClass.Data.Repositories
     {
         private readonly ApplicationDbContext context;
         private readonly IMessageToUserService messageToUserService;
-        private readonly UserManager<ApplicationUser> userManager;
 
         public GymClassRepository(ApplicationDbContext context, IMessageToUserService messageToUserService, UserManager<ApplicationUser> userManager)
         {
             this.context = context;
             this.messageToUserService = messageToUserService;
-            this.userManager = userManager;
         }
         public async Task<List<BusinessLogic.Entities.GymClass>> GetAsync(string userId, bool showHistory = false, bool showBooked = false)
         {

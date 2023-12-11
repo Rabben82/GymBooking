@@ -65,7 +65,7 @@ img {
 
 /* Optional: Add margin to navigation */
 .nav-placement {
-    margin-left: 18rem;
+    margin-left: 14rem;
 }
 
 .row > * {
@@ -198,9 +198,13 @@ form#download-data button:hover {
 div.col-md-9 {
     padding-left: 5rem;
 }
-/*#text-classeshistory {
-    padding-right: 10rem;
-}*/
+#text-classeshistory {
+    margin-right: 6rem;
+}
+#text-classeshistory:hover {
+    border-bottom: 1px solid black !important;
+    border-bottom-width: 1px !important;
+}
 div.col-md-9 h3 {
     text-transform: uppercase;
 }

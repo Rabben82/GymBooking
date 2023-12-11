@@ -37,11 +37,18 @@
                                    asp-route-showHistory="true"
                                    asp-route-userId="@User.FindFirstValue(ClaimTypes.NameIdentifier)">MY BOOKING HISTORY</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-navbar" asp-area="" asp-controller="GymClasses" asp-action="Index" asp-route-showhistory="true">CLASSES HISTORY</a>
+                            </li>
                         }
-                        <li class="nav-item">
-                            <a class="nav-link text-navbar" id="text-classeshistory" asp-area="" asp-controller="GymClasses" asp-action="Index" asp-route-showhistory="true">CLASSES HISTORY</a>
-                        </li>
+                        else
+                        { <li class="nav-item">
+                              <a class="nav-link text-navbar" id="text-classeshistory" asp-area="" asp-controller="GymClasses" asp-action="Index" asp-route-showhistory="true">CLASSES HISTORY</a>
+                          </li>
+                        }
+                       
                     </ul>
+
                     <partial name="_LoginPartial" />
                 </div>
             </div>
