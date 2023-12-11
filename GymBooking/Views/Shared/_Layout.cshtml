@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/GymBooking.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Fonts/ford-antenna-black-cmp.woff" />
 </head>
 <body>
     <header>
@@ -20,19 +21,19 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between navMargin">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between nav-placement">
 
                     <ul class="navbar-nav flex-grow-1 justify-content-center">
                         @if (User.Identity is { IsAuthenticated: true })
                         {
-                            <a class="nav-link text-white" asp-area="" asp-controller="GymClasses" asp-action="Index">HOME</a>
+                            <a class="nav-link text-navbar" asp-area="" asp-controller="GymClasses" asp-action="Index">HOME</a>
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="GymClasses" asp-action="Index"
+                                <a class="nav-link text-navbar" asp-area="" asp-controller="GymClasses" asp-action="Index"
                                    asp-route-showBooked="true"
                                    asp-route-userId="@User.FindFirstValue(ClaimTypes.NameIdentifier)">MY BOOKED CLASSES</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="GymClasses" asp-action="Index"
+                                <a class="nav-link text-navbar" asp-area="" asp-controller="GymClasses" asp-action="Index"
                                    asp-route-showHistory="true"
                                    asp-route-userId="@User.FindFirstValue(ClaimTypes.NameIdentifier)">BOOKING HISTORY</a>
                             </li>

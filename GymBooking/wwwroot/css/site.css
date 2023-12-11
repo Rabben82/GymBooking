@@ -1,3 +1,7 @@
+@font-face {
+    font-family: 'antenna';
+    src: url('../fonts/ford-antenna-medium.woff') format('truetype');
+}
 html {
     font-size: 14px;
 }
@@ -27,16 +31,13 @@ body {
     align-items: center;
 }
 
-.textPadding {
-    padding-bottom: 10px;
-}
 h3 {
-    font-family: sans-serif;
+    font-family: antenna;
+}
+.text-navbar {
+    font-family: antenna;
 }
 
-/* Shared styles for positioned elements */
-/*.centerContent dl,
-.centerContent .col-md-3,*/
 .table-overlay {
     position: absolute;
     top: 50%;
@@ -63,13 +64,8 @@ img {
 }
 
 /* Optional: Add margin to navigation */
-.navMargin {
-    margin-left: 16%;
-}
-
-.textFormat {
-    text-align: end;
-    padding-bottom: 0.5rem;
+.nav-placement {
+    margin-left: 18rem;
 }
 
 .row > * {
@@ -85,7 +81,6 @@ img {
     margin-top: 2rem;
     margin-bottom: 1.5rem;
 }
-
 .navbar-nav a,
 #exclude-transition,
 #logout-button {
@@ -130,13 +125,13 @@ a:hover {
     margin-top: 0.3rem;
 }
 /* Set the default text color for links */
-.navbar-nav .text-white {
+.navbar-nav .text-navbar {
     color: white !important; /* Use !important to ensure the style takes precedence */
     transition: color 0.3s ease-in-out; /* Add a smooth transition for the color change */
 }
 
 /* Change the text color when hovering over links */
-.navbar-nav .text-white:hover {
+.navbar-nav .text-navbar:hover {
     color: rgba(92, 131, 116, 0.8) !important; /* Set your desired hover color */
 }
 
@@ -146,6 +141,7 @@ a:hover {
 }
 .text-user:hover {
     border-bottom: 1px solid black!important;
+    content: "HEY";
 }
 
 #text-greeting {
@@ -205,3 +201,22 @@ div.col-md-9 {
 div.col-md-9 h3 {
     text-transform: uppercase;
 }
+
+.text-user:hover:before {
+    content: "MANAGE ACCOUNT"; /* Set the new text content */
+    color: #ff0000; /* Set the text color for the new text */
+    transition: opacity 0.3s ease; /* Add a smooth transition effect for opacity changes */
+}
+
+/* Hide the new text by default */
+.text-user:hover:before {
+    opacity: 0;
+}
+
+/* Display the new text on hover */
+.text-user:hover:hover:before {
+    opacity: 1;
+}
+/*.text-hide:hover {
+    color: transparent !important;*/ /* Set the text color to transparent on hover */
+/*}*/
