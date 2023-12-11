@@ -11,12 +11,10 @@ namespace GymBooking.WebApp.Controllers
     [Authorize]
     public class GymClassesController : Controller
     {
-        private readonly UserManager<ApplicationUser> userManager;
         private readonly IUnitOfWork uow;
 
-        public GymClassesController(UserManager<ApplicationUser> userManager, IUnitOfWork uow)
+        public GymClassesController(IUnitOfWork uow)
         {
-            this.userManager = userManager;
             this.uow = uow;
         }
         [AllowAnonymous]
@@ -29,7 +27,7 @@ namespace GymBooking.WebApp.Controllers
         }
 
         // GET: GymClasses/Details/5
-        public async Task<IActionResult> Details(int? id, string message ="DETAILS")
+        public async Task<IActionResult> Details(int? id, string message = "DETAILS")
         {
             if (id == null || !GymClassExists((int)id))
             {
@@ -66,7 +64,7 @@ namespace GymBooking.WebApp.Controllers
 
         // GET: GymClasses/Edit/5
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int? id, string message="EDIT GYM CLASS")
+        public async Task<IActionResult> Edit(int? id, string message = "EDIT GYM CLASS")
         {
             if (id == null || !GymClassExists((int)id))
             {
@@ -114,7 +112,7 @@ namespace GymBooking.WebApp.Controllers
 
         // GET: GymClasses/Delete/5
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(int? id, string message ="DELETE THIS CLASS?")
+        public async Task<IActionResult> Delete(int? id, string message = "DELETE THIS CLASS?")
         {
             if (id == null)
             {
@@ -154,26 +152,21 @@ namespace GymBooking.WebApp.Controllers
 
         public async Task<IActionResult> BookingToggle(int? id)
         {
-            var currentUser = await userManager.GetUserAsync(User);
 
-            if (currentUser == null) return NotFound("No User Found");
+            if (id == null) return NotFound("No Gym class Found");
 
-            await uow.GymClassRepository.BookingToggle(id, currentUser);
+            await uow.GymClassRepository.BookingToggle(id);
 
             await uow.SaveCompleteAsync();
 
             return RedirectToAction(nameof(Index));
         }
-        public async Task<IActionResult> MyBookingHistory(string message ="My Booking History")
+        public async Task<IActionResult> MyBookingHistory(string message = "My Booking History")
         {
-            var currentUser = userManager.GetUserId(User);
 
-            if (currentUser == null) return NotFound("No User Found");
-
-            var myBookings = await uow.GymClassRepository.MyBookingHistory(currentUser, message);
+            var myBookings = await uow.GymClassRepository.MyBookingHistory(message);
 
             return View(myBookings);
         }
     }
 }
-    

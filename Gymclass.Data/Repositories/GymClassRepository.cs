@@ -1,8 +1,10 @@
-﻿using GymClass.BusinessLogic.Entities;
+﻿using System.Security.Claims;
+using GymClass.BusinessLogic.Entities;
 using GymClass.BusinessLogic.Exceptions;
 using GymClass.BusinessLogic.Repositories;
 using GymClass.BusinessLogic.Services;
 using GymClass.Data.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,11 +15,13 @@ namespace GymClass.Data.Repositories
     {
         private readonly ApplicationDbContext context;
         private readonly IMessageToUserService messageToUserService;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
-        public GymClassRepository(ApplicationDbContext context, IMessageToUserService messageToUserService, UserManager<ApplicationUser> userManager)
+        public GymClassRepository(ApplicationDbContext context, IMessageToUserService messageToUserService, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor)
         {
             this.context = context;
             this.messageToUserService = messageToUserService;
+            this.httpContextAccessor = httpContextAccessor;
         }
         public async Task<List<BusinessLogic.Entities.GymClass>> GetAsync(string userId, bool showHistory = false, bool showBooked = false)
         {
@@ -42,9 +46,9 @@ namespace GymClass.Data.Repositories
 
                 // Filter so it only shows booked classes in my booked classes
                 if (showBooked) messageToUserService.AddMessage("My Bookings");
-                  getClasses = showBooked
-                    ? getClasses.Where(m => m.AttendingMembers.Any(u => u.ApplicationUserId == userId))
-                    : getClasses;
+                getClasses = showBooked
+                  ? getClasses.Where(m => m.AttendingMembers.Any(u => u.ApplicationUserId == userId))
+                  : getClasses;
             }
 
             return await getClasses.ToListAsync();
@@ -88,7 +92,7 @@ namespace GymClass.Data.Repositories
             messageToUserService.AddMessage(message);
         }
 
-        public async Task<BusinessLogic.Entities.GymClass> BookingToggle(int? id, ApplicationUser user)
+        public async Task<BusinessLogic.Entities.GymClass> BookingToggle(int? id)
         {
             if (id == null) throw new EntityNotFoundException($"GymClass with id {id} not found");
 
@@ -98,19 +102,20 @@ namespace GymClass.Data.Repositories
 
             if (gymClass == null) throw new EntityNotFoundException($"GymClass entity not found");
 
-            var currentUser = user;
+            // this code is retrieving the unique identifier of the currently authenticated user from the claims in the HTTP context
+            var currentUser = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (currentUser == null) throw new EntityNotFoundException($"Current user entity not found");
 
             //Is the user already attending
             var attendingMember = gymClass.AttendingMembers
-                .FirstOrDefault(member => member.ApplicationUserId == currentUser.Id);
+                .FirstOrDefault(member => member.ApplicationUserId == currentUser);
 
             if (attendingMember == null)
             {
                 gymClass.AttendingMembers.Add(new ApplicationUserGymClass
                 {
-                    ApplicationUserId = currentUser.Id,
+                    ApplicationUserId = currentUser,
                     GymClassId = gymClass.Id
 
                 });
@@ -123,11 +128,11 @@ namespace GymClass.Data.Repositories
             return gymClass;
         }
 
-        public async Task<IList<BusinessLogic.Entities.GymClass>> MyBookingHistory(string user, string message)
+        public async Task<IList<BusinessLogic.Entities.GymClass>> MyBookingHistory(string message)
         {
             messageToUserService.AddMessage(message);
 
-            var currentUser = user;
+            var currentUser = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var myBookingHistory = context.Users
                 .Where(u => u.Id == currentUser)
@@ -136,9 +141,6 @@ namespace GymClass.Data.Repositories
                 .Where(d => d.StartTime < DateTime.Now);
 
             return await myBookingHistory.ToListAsync();
-
         }
- 
-       
     }
 }

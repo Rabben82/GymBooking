@@ -9,8 +9,8 @@ public interface IGymClassRepository
     public void Remove(Entities.GymClass gymClass);
     public void Update(Entities.GymClass gymClass);
     public void Add(Entities.GymClass gymClass);
-    public Task<Entities.GymClass> BookingToggle(int? id, ApplicationUser user);
+    public Task<Entities.GymClass> BookingToggle(int? id);
     public void AddMessageToUser(string message);
     public bool Any(int? id);
-    public Task<IList<BusinessLogic.Entities.GymClass>> MyBookingHistory(string user, string message);
+    public Task<IList<BusinessLogic.Entities.GymClass>> MyBookingHistory(string message);
 }
