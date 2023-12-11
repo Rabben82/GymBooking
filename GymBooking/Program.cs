@@ -7,6 +7,7 @@ using GymClass.Data.Data;
 using GymClass.Data.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using GymBooking.WebApp.Data;
 
 namespace GymBooking
 {

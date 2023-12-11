@@ -30,6 +30,9 @@ body {
 .textPadding {
     padding-bottom: 10px;
 }
+h3 {
+    font-family: sans-serif;
+}
 
 /* Shared styles for positioned elements */
 /*.centerContent dl,
@@ -83,13 +86,16 @@ img {
     margin-bottom: 1.5rem;
 }
 
-.navbar-nav a, #exclude-transition {
+.navbar-nav a,
+#exclude-transition,
+#logout-button {
     transition: transform 0.3s ease-in-out;
     font-weight: normal; /* Default font-weight */
     border-bottom: 1px solid transparent; /* Set a transparent border by default */
 }
 
-.navbar-nav a:hover {
+.navbar-nav a:hover,
+#logout-button:hover {
     transform: scale(1.1); /* Adjust the scale factor as needed */
     font-weight: bold;
     border-bottom: 1px solid black; /* Set the border color on hover */
@@ -129,13 +135,17 @@ a:hover {
     transition: color 0.3s ease-in-out; /* Add a smooth transition for the color change */
 }
 
-    /* Change the text color when hovering over links */
-    .navbar-nav .text-white:hover {
-        color: rgba(92, 131, 116, 0.8) !important; /* Set your desired hover color */
-    }
+/* Change the text color when hovering over links */
+.navbar-nav .text-white:hover {
+    color: rgba(92, 131, 116, 0.8) !important; /* Set your desired hover color */
+}
 
 .text-user {
+    padding-top: 0.55rem;
     color: #9EC8B9 !important;
+}
+.text-user:hover {
+    border-bottom: 1px solid black!important;
 }
 
 #text-greeting {
@@ -177,4 +187,21 @@ a#enable-authenticator:hover {
     color: black !important;
     border-bottom: 1px solid black;
     width: fit-content;
+}
+button.w-100.btn.btn-lg.btn-primary {
+    background: #5C8374;
+    color: white;
+}
+form#download-data button {
+    background: #5C8374;
+    color: white;
+}
+form#download-data button:hover {
+    color: black;
+}
+div.col-md-9 {
+    padding-left: 5rem;
+}
+div.col-md-9 h3 {
+    text-transform: uppercase;
 }

@@ -1,0 +1,31 @@
+﻿@using GymClass.BusinessLogic.Services
+@inject IMessageToUserService MessageToUser;
+@{
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout !=  null)
+    {
+        Layout = parentLayout.ToString();
+    }
+    else
+    {
+        Layout = "/Areas/Identity/Pages/Account/Manage/_Layout.cshtml";
+    }
+}
+@{
+    MessageToUser.AddMessage("MANAGE YOUR ACCOUNT");
+}
+
+<div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <partial name="_ManageNav" />
+        </div>
+        <div class="col-md-9">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}
