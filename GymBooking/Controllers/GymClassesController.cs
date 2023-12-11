@@ -3,6 +3,7 @@ using GymClass.BusinessLogic.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Build.Framework;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -164,14 +165,13 @@ namespace GymBooking.WebApp.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
-        public async Task<IActionResult> MyBookingHistory()
+        public async Task<IActionResult> MyBookingHistory(string message ="My Booking History")
         {
             var currentUser = userManager.GetUserId(User);
 
             if (currentUser == null) return NotFound("No User Found");
 
-            var myBookings = await uow.GymClassRepository.MyBookingHistory(currentUser);
+            var myBookings = await uow.GymClassRepository.MyBookingHistory(currentUser, message);
 
             return View(myBookings);
         }

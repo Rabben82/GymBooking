@@ -27,14 +27,10 @@ namespace GymClass.Data.Repositories
 
             if (showHistory)
             {
-                messageToUserService.AddMessage("My History");
+                messageToUserService.AddMessage("Classes History");
                 // Display all classes for history
                 getClasses = context.GymClasses
-                    .Include(m => m.AttendingMembers)
-                    .ThenInclude(u => u.ApplicationUser);
-
-                //Filter so it wont show upcoming classes in history
-                getClasses = getClasses.Where(m => m.StartTime <= DateTime.Now);
+                    .Where(m => m.StartTime <= DateTime.Now);
             }
             else
             {
@@ -48,7 +44,7 @@ namespace GymClass.Data.Repositories
 
                 // Filter so it only shows booked classes in my booked classes
                 if (showBooked) messageToUserService.AddMessage("My Bookings");
-                ; getClasses = showBooked
+                  getClasses = showBooked
                     ? getClasses.Where(m => m.AttendingMembers.Any(u => u.ApplicationUserId == userId))
                     : getClasses;
             }
@@ -104,8 +100,10 @@ namespace GymClass.Data.Repositories
             return gymClass;
         }
 
-        public async Task<IList<BusinessLogic.Entities.GymClass>> MyBookingHistory(string user)
+        public async Task<IList<BusinessLogic.Entities.GymClass>> MyBookingHistory(string user, string message)
         {
+            messageToUserService.AddMessage(message);
+
             var currentUser = user;
 
             var myBookingHistory = context.Users
@@ -117,7 +115,7 @@ namespace GymClass.Data.Repositories
             return await myBookingHistory.ToListAsync();
 
         }
-
+ 
         public bool Any(int? id)
         {
             if (id == null) throw new EntityNotFoundException("GymClass with id {id} not found");

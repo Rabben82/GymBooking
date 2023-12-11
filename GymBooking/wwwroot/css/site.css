@@ -198,6 +198,9 @@ form#download-data button:hover {
 div.col-md-9 {
     padding-left: 5rem;
 }
+/*#text-classeshistory {
+    padding-right: 10rem;
+}*/
 div.col-md-9 h3 {
     text-transform: uppercase;
 }
@@ -217,6 +220,3 @@ div.col-md-9 h3 {
 .text-user:hover:hover:before {
     opacity: 1;
 }
-/*.text-hide:hover {
-    color: transparent !important;*/ /* Set the text color to transparent on hover */
-/*}*/
