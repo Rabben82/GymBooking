@@ -1,78 +1,82 @@
 ﻿@using GymClass.BusinessLogic.Entities
 @using GymClass.BusinessLogic.Services
+@using Microsoft.AspNetCore.Http.Extensions
 @model IEnumerable<GymClass>
 @inject IBookingService BookingService;
+@{
+    // Get the current page URL
+    var currentUrl = Context.Request.GetDisplayUrl();
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FormattedDurationWithoutSeconds) h
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.StartTime)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.EndTime)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Duration)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
+                @if (User.Identity is { IsAuthenticated: true })
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.StartTime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EndTime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FormattedDurationWithoutSeconds) h
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-
-                        @if (User.Identity is { IsAuthenticated: true })
+                    <td>
+                        @if (item.StartTime >= DateTime.Now)
                         {
-                            <td>
-                                @if (item.StartTime >= DateTime.Now)
-                                {
-                                    <a asp-action="BookingToggle" asp-controller="GymClasses" asp-route-id="@item.Id">
+                            <a asp-action="BookingToggle" asp-controller="GymClasses" asp-route-id="@item.Id" asp-route-currentUrl="@currentUrl">
 
                                 @if (await BookingService.IsMemberBooked(item.Id))
-                                        {
-                                            <text>Unbook</text>
-                                        }
-                                        else
-                                        {
-                                            <text>Book</text>
-                                        }
-                                    </a>
-                                    <span>|</span>
-
-                                }
-                                <a asp-action="Details" asp-controller="GymClasses" asp-route-id="@item.Id">Details</a> <span>|</span>
-                                @if (User.IsInRole("Admin"))
                                 {
-                                    <a asp-action="Edit" asp-controller="GymClasses" asp-route-id="@item.Id">Edit</a>
-                                    <span>|</span>
-                                    <a asp-action="Delete" asp-controller="GymClasses" asp-route-id="@item.Id">Delete</a>
+                                    <text>Unbook</text>
                                 }
-                            </td>
+                                else
+                                {
+                                    <text>Book</text>
+                                }
+                            </a>
+                            <span>|</span>
+
                         }
-                    </tr>
+                        <a asp-action="Details" asp-controller="GymClasses" asp-route-id="@item.Id">Details</a> <span>|</span>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Edit" asp-controller="GymClasses" asp-route-id="@item.Id">Edit</a>
+                            <span>|</span>
+                            <a asp-action="Delete" asp-controller="GymClasses" asp-route-id="@item.Id">Delete</a>
+                        }
+                    </td>
                 }
-            </tbody>
-        </table>
+            </tr>
+        }
+    </tbody>
+</table>

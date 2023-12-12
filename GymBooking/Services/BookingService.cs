@@ -10,14 +10,12 @@ namespace GymBooking.WebApp.Services
     public class BookingService : IBookingService
     {
         private readonly ApplicationDbContext context;
-        private readonly UserManager<ApplicationUser> userManager;
         private readonly IHttpContextAccessor httpContextAccessor;
 
 
-        public BookingService(ApplicationDbContext context, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor)
+        public BookingService(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             this.context = context;
-            this.userManager = userManager;
             this.httpContextAccessor = httpContextAccessor;
         }
 

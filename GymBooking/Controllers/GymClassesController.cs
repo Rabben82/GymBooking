@@ -1,7 +1,5 @@
-﻿using GymClass.BusinessLogic.Entities;
-using GymClass.BusinessLogic.Repositories;
+﻿using GymClass.BusinessLogic.Repositories;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -150,16 +148,16 @@ namespace GymBooking.WebApp.Controllers
             return uow.GymClassRepository.Any(id);
         }
 
-        public async Task<IActionResult> BookingToggle(int? id)
+        public async Task<IActionResult> BookingToggle(int? id, string currentUrl)
         {
-
             if (id == null) return NotFound("No Gym class Found");
 
             await uow.GymClassRepository.BookingToggle(id);
 
             await uow.SaveCompleteAsync();
 
-            return RedirectToAction(nameof(Index));
+            // Redirect back to the referring URL
+            return Redirect(currentUrl);
         }
         public async Task<IActionResult> MyBookingHistory(string message = "My Booking History")
         {
