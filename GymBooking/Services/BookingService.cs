@@ -1,8 +1,6 @@
 ﻿using System.Security.Claims;
-using GymClass.BusinessLogic.Entities;
 using GymClass.BusinessLogic.Services;
 using GymClass.Data.Data;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace GymBooking.WebApp.Services

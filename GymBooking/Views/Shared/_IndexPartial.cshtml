@@ -3,10 +3,7 @@
 @using Microsoft.AspNetCore.Http.Extensions
 @model IEnumerable<GymClass>
 @inject IBookingService BookingService;
-@{
-    // Get the current page URL
-    var currentUrl = Context.Request.GetDisplayUrl();
-}
+
 <table class="table">
     <thead>
         <tr>
@@ -53,7 +50,8 @@
                     <td>
                         @if (item.StartTime >= DateTime.Now)
                         {
-                            <a asp-action="BookingToggle" asp-controller="GymClasses" asp-route-id="@item.Id" asp-route-currentUrl="@currentUrl">
+                            <a asp-action="BookingToggle" asp-controller="GymClasses" 
+                               asp-route-id="@item.Id" asp-route-currentUrl="@Context.Request.GetDisplayUrl()">
 
                                 @if (await BookingService.IsMemberBooked(item.Id))
                                 {
