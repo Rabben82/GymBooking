@@ -1,10 +1,7 @@
 ﻿@using GymClass.BusinessLogic.Entities
 @using GymClass.BusinessLogic.Services
-@using GymBooking.WebApp.Services
 @model IEnumerable<GymClass>
 @inject IBookingService BookingService;
-@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> UserManager
-@inject IMessageToUserService MessageToUser;
 
         <table class="table">
             <thead>
@@ -49,14 +46,12 @@
 
                         @if (User.Identity is { IsAuthenticated: true })
                         {
-                            var currentUser = UserManager.GetUserAsync(User);
-                            var isBooked = (currentUser.Result != null && await BookingService.IsMemberBooked(currentUser.Result.Id, item.Id));
                             <td>
                                 @if (item.StartTime >= DateTime.Now)
                                 {
                                     <a asp-action="BookingToggle" asp-controller="GymClasses" asp-route-id="@item.Id">
 
-                                        @if (isBooked)
+                                @if (await BookingService.IsMemberBooked(item.Id))
                                         {
                                             <text>Unbook</text>
                                         }

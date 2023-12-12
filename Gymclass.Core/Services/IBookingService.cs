@@ -2,5 +2,5 @@
 
 public interface IBookingService
 {
-    Task<bool> IsMemberBooked(string userId, int gymClassId);
+    Task<bool> IsMemberBooked(int gymClassId);
 }
