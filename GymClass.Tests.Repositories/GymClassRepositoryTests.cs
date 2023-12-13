@@ -18,13 +18,11 @@ namespace GymClass.Tests.Repositories
         private readonly TestDatabaseFixture fixture;
         private readonly GymClassRepository sut;
 
-
         public GymClassRepositoryTests(TestDatabaseFixture fixture)
         {
             this.fixture = fixture;
-  
 
-            sut = new GymClassRepository(fixture.Context, fixture.MessageToUserService, this.fixture.HttpContextAccessor);
+            sut = new GymClassRepository(fixture.Context, fixture.MessageToUserService, fixture.HttpContextAccessor);
         }
 
         [Theory]
@@ -35,8 +33,6 @@ namespace GymClass.Tests.Repositories
 
             // Act
             var result = await sut.BookingToggle(gymClassId);
-            
-            //var result = await repository.BookingToggle(gymClassId);
 
             // Assert
             Assert.NotNull(result);
@@ -49,18 +45,12 @@ namespace GymClass.Tests.Repositories
         [InlineData(1)]
         public void Any_ShouldReturnTrueForExistingId(int gymClassId)
         {
-
             // Act
             var result = sut.Any(gymClassId);
 
             // Assert
             Assert.True(result);
         }
-        //public void Dispose()
-        //{
-        //    // Dispose of the fixture, which will delete the database
-        //    fixture.Dispose();
-        //}
     }
 
 }
