@@ -10,6 +10,12 @@ namespace GymBooking.WebApp.Controllers
     public class GymClassesController : Controller
     {
         private readonly IUnitOfWork uow;
+        private string pageName = string.Empty;
+        private const string PageNameDetails = "DETAILS";
+        private const string PageNameCreate = "CREATE NEW CLASS";
+        private const string PageNameEdit = "EDIT GYM CLASS";
+        private const string PageNameDelete = "DELETE THIS CLASS?";
+        private const string PageNameBookingHistory = "My Booking History";
 
         public GymClassesController(IUnitOfWork uow)
         {
@@ -25,21 +31,23 @@ namespace GymBooking.WebApp.Controllers
         }
 
         // GET: GymClasses/Details/5
-        public async Task<IActionResult> Details(int? id, string message = "DETAILS")
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null || !GymClassExists((int)id))
             {
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(await uow.GymClassRepository.GetAsync((int)id, message));
+            pageName = PageNameDetails;
+
+            return View(await uow.GymClassRepository.GetAsync((int)id, pageName));
         }
 
         // GET: GymClasses/Create
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
-            uow.GymClassRepository.AddMessageToUser("CREATE NEW CLASS");
+            uow.GymClassRepository.AddMessageToUser(PageNameCreate);
 
             return View();
         }
@@ -62,14 +70,16 @@ namespace GymBooking.WebApp.Controllers
 
         // GET: GymClasses/Edit/5
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int? id, string message = "EDIT GYM CLASS")
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || !GymClassExists((int)id))
             {
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(await uow.GymClassRepository.GetAsync((int)id, message));
+            pageName = PageNameEdit;
+
+            return View(await uow.GymClassRepository.GetAsync((int)id, pageName));
         }
 
         // POST: GymClasses/Edit/5
@@ -110,14 +120,16 @@ namespace GymBooking.WebApp.Controllers
 
         // GET: GymClasses/Delete/5
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(int? id, string message = "DELETE THIS CLASS?")
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(await uow.GymClassRepository.GetAsync((int)id, message));
+            pageName = PageNameDelete;
+
+            return View(await uow.GymClassRepository.GetAsync((int)id, pageName));
         }
 
         // POST: GymClasses/Delete/5
@@ -159,10 +171,11 @@ namespace GymBooking.WebApp.Controllers
             // Redirect back to the referring URL
             return Redirect(currentUrl);
         }
-        public async Task<IActionResult> MyBookingHistory(string message = "My Booking History")
+        public async Task<IActionResult> MyBookingHistory()
         {
+            pageName = PageNameBookingHistory;
 
-            var myBookings = await uow.GymClassRepository.MyBookingHistory(message);
+            var myBookings = await uow.GymClassRepository.MyBookingHistory(pageName);
 
             return View(myBookings);
         }
