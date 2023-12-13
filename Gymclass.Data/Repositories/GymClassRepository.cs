@@ -70,7 +70,7 @@ namespace GymClass.Data.Repositories
         }
         public bool Any(int? id)
         {
-            if (id == null) throw new EntityNotFoundException("GymClass with id {id} not found");
+            if (id == null) throw new EntityNotFoundException($"GymClass with id {id} not found");
             return context.GymClasses.Any(i => i.Id == id);
         }
 
