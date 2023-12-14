@@ -1,15 +1,6 @@
-using GymClass.BusinessLogic.Entities;
-using GymClass.BusinessLogic.Services;
-using GymClass.Data.Data;
 using GymClass.Data.Repositories;
-using Microsoft.EntityFrameworkCore;
-using Moq;
-using System.Security.Claims;
-using System.Threading.Tasks;
+using GymClass.BusinessLogic.Exceptions;
 using GymClass.Tests.Repositories.Fixtures;
-using Xunit;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace GymClass.Tests.Repositories
 {
@@ -24,6 +15,17 @@ namespace GymClass.Tests.Repositories
 
             sut = new GymClassRepository(fixture.Context, fixture.MessageToUserService, fixture.HttpContextAccessor);
         }
+        [Fact]
+        public async Task GetAsync_ShouldReturnGymClass()
+        {
+            //Arrange
+
+            //Act
+            var result = await sut.GetAsync(userId: "expectedUserId", showHistory:true);
+            //Assert
+            Assert.IsType<List<BusinessLogic.Entities.GymClass>>(result);
+            Assert.Contains("Classes History", fixture.MessageToUserService.ShowMessage());
+        }
 
         [Theory]
         [InlineData(1)]
@@ -32,7 +34,7 @@ namespace GymClass.Tests.Repositories
             //Arrange
 
             // Act
-            var result = await sut.BookingToggle(gymClassId);
+            var result = await sut.BookingToggleAsync(gymClassId);
 
             // Assert
             Assert.NotNull(result);
@@ -40,6 +42,20 @@ namespace GymClass.Tests.Repositories
             Assert.Equal(gymClassId, result.Id);
             Assert.IsType<BusinessLogic.Entities.GymClass>(result);
             // Add more assertions based on your expected behavior
+        }
+        [Theory]
+        [InlineData(0)]
+        public async Task BookingToggle_ShouldReturnEntityNotFound(int gymClassId)
+        {
+            //Act && Assert
+            //This is an asynchronous assertion using xUnit's Assert.ThrowsAsync method.
+            //It is used to assert that the provided asynchronous code (inside the lambda expression)
+            //throws a specific exception, in this case, EntityNotFoundException.
+
+            await Assert.ThrowsAsync<EntityNotFoundException>(async () =>
+            {
+                var result = await sut.BookingToggleAsync(gymClassId);
+            });
         }
         [Theory]
         [InlineData(1)]

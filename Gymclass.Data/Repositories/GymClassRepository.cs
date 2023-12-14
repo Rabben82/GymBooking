@@ -94,7 +94,7 @@ namespace GymClass.Data.Repositories
             messageToUserService.AddMessage(message);
         }
 
-        public async Task<BusinessLogic.Entities.GymClass> BookingToggle(int? id)
+        public async Task<BusinessLogic.Entities.GymClass> BookingToggleAsync(int? id)
         {
             if (id == null) throw new EntityNotFoundException($"GymClass with id {id} not found");
 
@@ -130,7 +130,7 @@ namespace GymClass.Data.Repositories
             return gymClass;
         }
 
-        public async Task<IList<BusinessLogic.Entities.GymClass>> MyBookingHistory(string pageName)
+        public async Task<IList<BusinessLogic.Entities.GymClass>> MyBookingHistoryAsync(string pageName)
         {
             messageToUserService.AddMessage(pageName);
 

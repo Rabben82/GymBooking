@@ -164,7 +164,7 @@ namespace GymBooking.WebApp.Controllers
         {
             if (id == null) return NotFound("No Gym class Found");
 
-            await uow.GymClassRepository.BookingToggle(id);
+            await uow.GymClassRepository.BookingToggleAsync(id);
 
             await uow.SaveCompleteAsync();
 
@@ -175,7 +175,7 @@ namespace GymBooking.WebApp.Controllers
         {
             pageName = PageNameBookingHistory;
 
-            var myBookings = await uow.GymClassRepository.MyBookingHistory(pageName);
+            var myBookings = await uow.GymClassRepository.MyBookingHistoryAsync(pageName);
 
             return View(myBookings);
         }
