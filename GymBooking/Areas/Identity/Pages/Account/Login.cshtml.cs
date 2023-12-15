@@ -16,13 +16,11 @@ namespace GymBooking.WebApp.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
-        private readonly IMessageToUserService messageToUser;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, IMessageToUserService messageToUser)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;
-            this.messageToUser = messageToUser;
         }
 
         /// <summary>
@@ -88,7 +86,6 @@ namespace GymBooking.WebApp.Areas.Identity.Pages.Account
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
-            messageToUser.AddMessage("LOG IN");
             returnUrl ??= Url.Content("~/");
 
             // Clear the existing external cookie to ensure a clean login process

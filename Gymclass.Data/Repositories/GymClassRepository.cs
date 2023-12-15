@@ -2,7 +2,6 @@
 using GymClass.BusinessLogic.Entities;
 using GymClass.BusinessLogic.Exceptions;
 using GymClass.BusinessLogic.Repositories;
-using GymClass.BusinessLogic.Services;
 using GymClass.Data.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -13,16 +12,11 @@ namespace GymClass.Data.Repositories
     public class GymClassRepository : IGymClassRepository
     {
         private readonly ApplicationDbContext context;
-        private readonly IMessageToUserService messageToUserService;
         private readonly IHttpContextAccessor httpContextAccessor;
-        private const string PageNameClassesHistory = "Classes History";
-        private const string PageNameOverviewClasses = "Overview Classes";
-        private const string PageNameMyBookings = "My Bookings";
 
-        public GymClassRepository(ApplicationDbContext context, IMessageToUserService messageToUserService, IHttpContextAccessor httpContextAccessor)
+        public GymClassRepository(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             this.context = context;
-            this.messageToUserService = messageToUserService;
             this.httpContextAccessor = httpContextAccessor;
         }
         public async Task<List<BusinessLogic.Entities.GymClass>> GetAsync(string userId, bool showHistory = false, bool showBooked = false)
@@ -31,7 +25,6 @@ namespace GymClass.Data.Repositories
 
             if (showHistory)
             {
-                messageToUserService.AddMessage(PageNameClassesHistory);
                 // Display all classes for history
                 getClasses = context.GymClasses
                     .Where(m => m.StartTime <= DateTime.Now);
@@ -39,15 +32,12 @@ namespace GymClass.Data.Repositories
             else
             {
                 //Only show upcoming classes
-                messageToUserService.AddMessage(PageNameOverviewClasses);
-                // Display upcoming classes for non-history
                 getClasses = context.GymClasses
                     .Where(c => c.StartTime >= DateTime.Now)
                     .Include(m => m.AttendingMembers)
                     .ThenInclude(u => u.ApplicationUser);
 
                 // Filter so it only shows booked classes in my booked classes
-                if (showBooked) messageToUserService.AddMessage(PageNameMyBookings);
                 getClasses = showBooked
                   ? getClasses.Where(m => m.AttendingMembers.Any(u => u.ApplicationUserId == userId))
                   : getClasses;
@@ -56,9 +46,8 @@ namespace GymClass.Data.Repositories
             return await getClasses.ToListAsync();
         }
 
-        public async Task<BusinessLogic.Entities.GymClass> GetAsync(int id, string pageName)
+        public async Task<BusinessLogic.Entities.GymClass> GetAsync(int id)
         {
-            messageToUserService.AddMessage(pageName);
 
             var gymClass = await context.GymClasses
                 .Include(m => m.AttendingMembers)
@@ -89,10 +78,10 @@ namespace GymClass.Data.Repositories
             context.Add(gymClass);
         }
 
-        public void AddMessageToUser(string message)
-        {
-            messageToUserService.AddMessage(message);
-        }
+        //public void AddMessageToUser(string message)
+        //{
+        //    messageToUserService.AddMessage(message);
+        //}
 
         public async Task<BusinessLogic.Entities.GymClass> BookingToggleAsync(int? id)
         {
@@ -130,9 +119,8 @@ namespace GymClass.Data.Repositories
             return gymClass;
         }
 
-        public async Task<IList<BusinessLogic.Entities.GymClass>> MyBookingHistoryAsync(string pageName)
+        public async Task<IList<BusinessLogic.Entities.GymClass>> MyBookingHistoryAsync()
         {
-            messageToUserService.AddMessage(pageName);
 
             var currentUser = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 

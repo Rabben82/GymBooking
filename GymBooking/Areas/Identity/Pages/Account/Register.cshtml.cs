@@ -24,15 +24,12 @@ namespace GymBooking.WebApp.Areas.Identity.Pages.Account
         private readonly IUserStore<ApplicationUser> _userStore;
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IMessageToUserService messageToUserService;
         private readonly IEmailSender _emailSender;
-
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IMessageToUserService messageToUserService,
             IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -40,7 +37,6 @@ namespace GymBooking.WebApp.Areas.Identity.Pages.Account
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
-            this.messageToUserService = messageToUserService;
             _emailSender = emailSender;
         }
 
@@ -112,7 +108,6 @@ namespace GymBooking.WebApp.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            messageToUserService.AddMessage("CREATE ACCOUNT");
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }

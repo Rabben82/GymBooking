@@ -19,12 +19,10 @@ namespace GymClass.Tests.Repositories.Fixtures
     public class TestDatabaseFixture : IDisposable
     {
         public ApplicationDbContext Context { get; set; } = null!;
-        public IMessageToUserService MessageToUserService { get; private set; }
         public IHttpContextAccessor HttpContextAccessor { get; private set; }
 
         public TestDatabaseFixture()
         {
-            MessageToUserService = new MessageToUserService();
             HttpContextAccessor = SetupHttpContextAccessor();
             SeedData();
         }

@@ -13,7 +13,7 @@ namespace GymClass.Tests.Repositories
         {
             this.fixture = fixture;
 
-            sut = new GymClassRepository(fixture.Context, fixture.MessageToUserService, fixture.HttpContextAccessor);
+            sut = new GymClassRepository(fixture.Context, fixture.HttpContextAccessor);
         }
         [Fact]
         public async Task GetAsync_ShouldReturnGymClass()
@@ -24,7 +24,6 @@ namespace GymClass.Tests.Repositories
             var result = await sut.GetAsync(userId: "expectedUserId", showHistory:true);
             //Assert
             Assert.IsType<List<BusinessLogic.Entities.GymClass>>(result);
-            Assert.Contains("Classes History", fixture.MessageToUserService.ShowMessage());
         }
 
         [Theory]

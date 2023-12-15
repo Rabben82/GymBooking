@@ -1,6 +1,5 @@
 ﻿@using System.Security.Claims
 @using GymClass.BusinessLogic.Services
-@inject IMessageToUserService MessageToUser;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,10 +25,10 @@
                     <ul class="navbar-nav flex-grow-1 justify-content-center">
                         @if (User.Identity is { IsAuthenticated: true })
                         {
-                            <a class="nav-link text-navbar" asp-area="" asp-controller="GymClasses" asp-action="Index">HOME</a>
+                            <a class="nav-link text-navbar" asp-area="" asp-controller="GymClasses" asp-action="Index" asp-route-pageName="OVERVIEW CLASSES" >HOME</a>
                             <li class="nav-item">
                                 <a class="nav-link text-navbar" asp-area="" asp-controller="GymClasses" asp-action="Index"
-                                   asp-route-showBooked="true"
+                                   asp-route-showBooked="true" asp-route-pageName="MY BOOKED CLASSES"
                                    asp-route-userId="@User.FindFirstValue(ClaimTypes.NameIdentifier)">MY BOOKED CLASSES</a>
                             </li>
                             <li class="nav-item">
@@ -38,14 +37,14 @@
                                    asp-route-userId="@User.FindFirstValue(ClaimTypes.NameIdentifier)">MY BOOKING HISTORY</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-navbar" asp-area="" asp-controller="GymClasses" asp-action="Index" asp-route-showhistory="true">CLASSES HISTORY</a>
+                                <a class="nav-link text-navbar" asp-area="" asp-controller="GymClasses" asp-action="Index" asp-route-showhistory="true" asp-route-pageName="CLASSES HISTORY">CLASSES HISTORY</a>
                             </li>
                         }
                         else
                         {
-                            <a class="nav-link text-navbar" asp-area="" asp-controller="GymClasses" asp-action="Index">HOME</a>
+                            <a class="nav-link text-navbar" asp-area="" asp-controller="GymClasses" asp-action="Index" asp-route-pageName="OVERVIEW CLASSES">HOME</a>
                             <li class="nav-item">
-                                <a class="nav-link text-navbar" id="text-classeshistory" asp-area="" asp-controller="GymClasses" asp-action="Index" asp-route-showhistory="true">CLASSES HISTORY</a>
+                                <a class="nav-link text-navbar" id="text-classeshistory" asp-area="" asp-controller="GymClasses" asp-action="Index" asp-route-showhistory="true" asp-route-pageName="CLASSES HISTORY">CLASSES HISTORY</a>
                             </li>
                         }
 
@@ -67,7 +66,7 @@
                 <!-- Rest of the content with overlay styling -->
                 <div class="table-overlay">
 
-                    <h3 class="text-center">@MessageToUser.ShowMessage().ToUpper()</h3>
+                    <h3 class="text-center">@ViewData["Title"]</h3>
                     <hr />
                     @RenderBody()
                 </div>

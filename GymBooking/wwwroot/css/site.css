@@ -115,6 +115,9 @@ a:hover {
     border-bottom-color: black; /* Set the border color on hover */
     color: black;
 }
+h3.text-center {
+    text-transform: uppercase;
+}
 
 .btn-color {
     background: #5C8374;

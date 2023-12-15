@@ -10,27 +10,22 @@ namespace GymBooking.WebApp.Controllers
     public class GymClassesController : Controller
     {
         private readonly IUnitOfWork uow;
-        private string pageName = string.Empty;
-        private const string PageNameDetails = "DETAILS";
-        private const string PageNameCreate = "CREATE NEW CLASS";
-        private const string PageNameEdit = "EDIT GYM CLASS";
-        private const string PageNameDelete = "DELETE THIS CLASS?";
-        private const string PageNameBookingHistory = "My Booking History";
 
         public GymClassesController(IUnitOfWork uow)
         {
             this.uow = uow;
         }
         [AllowAnonymous]
-        // GET: GymClasses
-        public async Task<IActionResult> Index(string userId, bool showHistory = false, bool showBooked = false)
+        [HttpGet]
+        public async Task<IActionResult> Index(string userId, string pageName, bool showHistory = false, bool showBooked = false)
         {
             if (string.IsNullOrWhiteSpace(userId)) NotFound("User not found");
 
+            ViewData["Title"] = pageName;
+
             return View(await uow.GymClassRepository.GetAsync(userId, showHistory, showBooked));
         }
-
-        // GET: GymClasses/Details/5
+        [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || !GymClassExists((int)id))
@@ -38,23 +33,19 @@ namespace GymBooking.WebApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            pageName = PageNameDetails;
-
-            return View(await uow.GymClassRepository.GetAsync((int)id, pageName));
+            return View(await uow.GymClassRepository.GetAsync((int)id));
         }
 
-        // GET: GymClasses/Create
+        [HttpGet]
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
-            uow.GymClassRepository.AddMessageToUser(PageNameCreate);
+           // uow.GymClassRepository.AddMessageToUser(PageNameCreate);
 
             return View();
         }
 
-        // POST: GymClasses/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,StartTime,Duration,Description")] GymClass.BusinessLogic.Entities.GymClass gymClass)
@@ -68,7 +59,7 @@ namespace GymBooking.WebApp.Controllers
             return View(gymClass);
         }
 
-        // GET: GymClasses/Edit/5
+        [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -77,14 +68,9 @@ namespace GymBooking.WebApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            pageName = PageNameEdit;
-
-            return View(await uow.GymClassRepository.GetAsync((int)id, pageName));
+            return View(await uow.GymClassRepository.GetAsync((int)id));
         }
 
-        // POST: GymClasses/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -118,7 +104,7 @@ namespace GymBooking.WebApp.Controllers
             return View(gymClass);
         }
 
-        // GET: GymClasses/Delete/5
+        [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -127,12 +113,10 @@ namespace GymBooking.WebApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            pageName = PageNameDelete;
-
-            return View(await uow.GymClassRepository.GetAsync((int)id, pageName));
+            return View(await uow.GymClassRepository.GetAsync((int)id));
         }
 
-        // POST: GymClasses/Delete/5
+        
         [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -154,12 +138,12 @@ namespace GymBooking.WebApp.Controllers
             await uow.SaveCompleteAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        [HttpGet]
         private bool GymClassExists(int id)
         {
             return uow.GymClassRepository.Any(id);
         }
-
+        [HttpGet]
         public async Task<IActionResult> BookingToggle(int? id, string currentUrl)
         {
             if (id == null) return NotFound("No Gym class Found");
@@ -171,11 +155,10 @@ namespace GymBooking.WebApp.Controllers
             // Redirect back to the referring URL
             return Redirect(currentUrl);
         }
+        [HttpGet]
         public async Task<IActionResult> MyBookingHistory()
         {
-            pageName = PageNameBookingHistory;
-
-            var myBookings = await uow.GymClassRepository.MyBookingHistoryAsync(pageName);
+            var myBookings = await uow.GymClassRepository.MyBookingHistoryAsync();
 
             return View(myBookings);
         }

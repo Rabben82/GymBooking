@@ -1,24 +1,16 @@
 ﻿@model System.Collections.Generic.IList<GymClass>
-
 @using GymClass.BusinessLogic.Services
 @using GymClass.BusinessLogic.Entities
 @inject IBookingService BookingService;
 @inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> UserManager
-@inject IMessageToUserService MessageToUser;
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "MY BOOKING HISTORY";
 }
 
 <div class="center-content position-relative">
 
     <div>
-        @if (User.IsInRole("Admin") && @MessageToUser.ShowMessage() == "Overview Classes")
-        {
-            <p>
-                <a asp-action="Create" class="btn btn-color">Create New Class</a>
-            </p>
-        }
         <partial name ="_IndexPartial"/>
     </div>
 </div>

@@ -3,16 +3,13 @@
 @model IEnumerable<GymClass>
 @inject IBookingService BookingService;
 @inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> UserManager
-@inject IMessageToUserService MessageToUser;
 
-@{
-    ViewData["Title"] = "Index";
-}
+
 
 <div class="center-content position-relative">
 
     <div>
-        @if (User.IsInRole("Admin") && @MessageToUser.ShowMessage() == "Overview Classes")
+        @if (User.IsInRole("Admin") && ViewData["Title"]?.ToString() == "OVERVIEW CLASSES")
         {
             <p>
                 <a asp-action="Create" class="btn btn-color">Create New Class</a>

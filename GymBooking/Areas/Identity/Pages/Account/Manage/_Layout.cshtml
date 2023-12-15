@@ -1,5 +1,4 @@
 ﻿@using GymClass.BusinessLogic.Services
-@inject IMessageToUserService MessageToUser;
 @{
     if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout !=  null)
     {
@@ -9,9 +8,6 @@
     {
         Layout = "/Areas/Identity/Pages/Account/Manage/_Layout.cshtml";
     }
-}
-@{
-    MessageToUser.AddMessage("MANAGE YOUR ACCOUNT");
 }
 
 <div>
