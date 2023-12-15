@@ -1,4 +1,4 @@
-﻿using GymClass.BusinessLogic.Entities;
+﻿using GymClass.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +11,7 @@ namespace GymClass.Data.Data
             : base(options)
         {
         }
-        public DbSet<BusinessLogic.Entities.GymClass> GymClasses { get; set; } = default!;
+        public DbSet<Core.Entities.GymClass> GymClasses { get; set; } = default!;
         protected override void OnModelCreating(ModelBuilder builder)
         {
             //Specify the composite primary key for the join table.

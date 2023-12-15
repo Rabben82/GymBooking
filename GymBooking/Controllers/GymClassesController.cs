@@ -1,8 +1,8 @@
-﻿using GymClass.BusinessLogic.Repositories;
+﻿using GymClass.Core.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using GymClasses = GymClass.Core.Entities.GymClass;
 
 namespace GymBooking.WebApp.Controllers
 {
@@ -17,7 +17,7 @@ namespace GymBooking.WebApp.Controllers
         }
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> Index(string userId, string pageName, bool showHistory = false, bool showBooked = false)
+        public async Task<IActionResult> Index(string userId, string pageName = "Overview Classes", bool showHistory = false, bool showBooked = false)
         {
             if (string.IsNullOrWhiteSpace(userId)) NotFound("User not found");
 
@@ -40,23 +40,18 @@ namespace GymBooking.WebApp.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
-           // uow.GymClassRepository.AddMessageToUser(PageNameCreate);
-
             return View();
         }
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,StartTime,Duration,Description")] GymClass.BusinessLogic.Entities.GymClass gymClass)
+        [ValidateModelState]
+        public async Task<IActionResult> Create([Bind("Id,Name,StartTime,Duration,Description")] GymClasses gymClass)
         {
-            if (ModelState.IsValid)
-            {
                 uow.GymClassRepository.Add(gymClass);
                 await uow.SaveCompleteAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(gymClass);
         }
 
         [HttpGet]
@@ -74,34 +69,27 @@ namespace GymBooking.WebApp.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,StartTime,Duration,Description")] GymClass.BusinessLogic.Entities.GymClass gymClass)
+        [ValidateModelState]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,StartTime,Duration,Description")] GymClass.Core.Entities.GymClass gymClass)
         {
             if (id != gymClass.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    uow.GymClassRepository.Update(gymClass);
-                    await uow.SaveCompleteAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!GymClassExists(gymClass.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                uow.GymClassRepository.Update(gymClass);
+                await uow.SaveCompleteAsync();
             }
-            return View(gymClass);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!GymClassExists(gymClass.Id))
+                {
+                    return NotFound();
+                }
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -116,7 +104,7 @@ namespace GymBooking.WebApp.Controllers
             return View(await uow.GymClassRepository.GetAsync((int)id));
         }
 
-        
+
         [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

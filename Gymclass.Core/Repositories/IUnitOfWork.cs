@@ -1,4 +1,4 @@
-﻿namespace GymClass.BusinessLogic.Repositories;
+﻿namespace GymClass.Core.Repositories;
 
 public interface IUnitOfWork
 {

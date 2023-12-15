@@ -1,4 +1,4 @@
-namespace GymClass.BusinessLogic.Entities
+namespace GymClass.Core.Entities
 {
     public class ErrorViewModel
     {

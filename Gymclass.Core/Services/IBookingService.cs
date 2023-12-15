@@ -1,6 +1,8 @@
-﻿namespace GymClass.BusinessLogic.Services;
+﻿using System.Security.Claims;
+
+namespace GymClass.Core.Services;
 
 public interface IBookingService
 {
-    Task<bool> IsMemberBooked(int gymClassId);
+    Task<bool> IsMemberBooked(ClaimsPrincipal user, int gymClassId);
 }

@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Gymclass.Core\GymClass.BusinessLogic.csproj" />
+    <ProjectReference Include="..\Gymclass.Core\GymClass.Core.csproj" />
     <ProjectReference Include="..\Gymclass.Data\GymClass.Data.csproj" />
   </ItemGroup>
 

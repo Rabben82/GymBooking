@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GymClass.BusinessLogic.Entities;
 using GymClass.Data.Data;
 using Microsoft.EntityFrameworkCore;
-using GymClass.BusinessLogic.Services;
 using Microsoft.AspNetCore.Http;
 using Moq;
 using System.Security.Claims;
 using GymBooking.WebApp.Services;
 using Humanizer;
 using System.Diagnostics.Metrics;
+using GymClass.Core.Entities;
 
 namespace GymClass.Tests.Repositories.Fixtures
 {
@@ -72,7 +71,7 @@ namespace GymClass.Tests.Repositories.Fixtures
                 LastName = "Rabb",
             });
 
-            Context.GymClasses.Add(new BusinessLogic.Entities.GymClass
+            Context.GymClasses.Add(new Core.Entities.GymClass
             {
                 Name = "Tennis",
                 StartTime = new DateTime(2023, 12, 17, 08, 00, 00),

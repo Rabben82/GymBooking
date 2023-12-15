@@ -1,5 +1,4 @@
 ﻿@using System.Security.Claims
-@using GymClass.BusinessLogic.Services
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +24,7 @@
                     <ul class="navbar-nav flex-grow-1 justify-content-center">
                         @if (User.Identity is { IsAuthenticated: true })
                         {
-                            <a class="nav-link text-navbar" asp-area="" asp-controller="GymClasses" asp-action="Index" asp-route-pageName="OVERVIEW CLASSES" >HOME</a>
+                            <a class="nav-link text-navbar" asp-area="" asp-controller="GymClasses" asp-action="Index" asp-route-pageName="OVERVIEW CLASSES">HOME</a>
                             <li class="nav-item">
                                 <a class="nav-link text-navbar" asp-area="" asp-controller="GymClasses" asp-action="Index"
                                    asp-route-showBooked="true" asp-route-pageName="MY BOOKED CLASSES"

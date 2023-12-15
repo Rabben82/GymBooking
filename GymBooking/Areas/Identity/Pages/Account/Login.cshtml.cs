@@ -3,8 +3,7 @@
 #nullable disable
 
 using System.ComponentModel.DataAnnotations;
-using GymClass.BusinessLogic.Entities;
-using GymClass.BusinessLogic.Services;
+using GymClass.Core.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

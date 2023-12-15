@@ -1,7 +1,6 @@
-﻿@using GymClass.BusinessLogic.Entities
-@using GymClass.BusinessLogic.Services
-@using Microsoft.AspNetCore.Http.Extensions
-@model IEnumerable<GymClass>
+﻿@using Microsoft.AspNetCore.Http.Extensions
+@using GymClass.Core.Services
+@model IEnumerable<GymClass.Core.Entities.GymClass>
 @inject IBookingService BookingService;
 
 <table class="table">
@@ -53,7 +52,7 @@
                             <a asp-action="BookingToggle" asp-controller="GymClasses" 
                                asp-route-id="@item.Id" asp-route-currentUrl="@Context.Request.GetDisplayUrl()">
 
-                                @if (await BookingService.IsMemberBooked(item.Id))
+                                @if (await BookingService.IsMemberBooked(User, item.Id))
                                 {
                                     <text>Unbook</text>
                                 }

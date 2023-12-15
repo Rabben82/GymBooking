@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using GymClass.BusinessLogic.Entities;
+using GymClass.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -101,37 +101,37 @@ namespace GymClass.Data.Data
 
         private static async Task AddClassesAsync()
         {
-            var gymClasses = new List<BusinessLogic.Entities.GymClass>
+            var gymClasses = new List<Core.Entities.GymClass>
             {
-                new BusinessLogic.Entities.GymClass
+                new Core.Entities.GymClass
                 {
                     Name = "Box It",
                     StartTime = new DateTime(2023,12,15, 14,30,0),
                     Duration = new TimeSpan(01,00,00),
                     Description = "Rough"
                 },
-                new BusinessLogic.Entities.GymClass
+                new Core.Entities.GymClass
                 {
                     Name = "Badminton",
                     StartTime = new DateTime(2023,12,02, 10,00,00),
                     Duration = new TimeSpan(01,30,00),
                     Description = "High Intensity"
                 },
-                new BusinessLogic.Entities.GymClass
+                new Core.Entities.GymClass
                 {
                     Name = "Spinning",
                     StartTime = new DateTime(2023,12,01, 18,00,00),
                     Duration = new TimeSpan(01,00,00),
                     Description = "High Intensity"
                 },
-                new BusinessLogic.Entities.GymClass
+                new Core.Entities.GymClass
                 {
                     Name = "Body Pump",
                     StartTime = new DateTime(2023,12,15, 15,00,00),
                     Duration = new TimeSpan(00,55,00),
                     Description = "Intense Training"
                 },
-                new BusinessLogic.Entities.GymClass
+                new Core.Entities.GymClass
                 {
                 Name = "Cross Training",
                 StartTime = new DateTime(2023,12,17, 08,00,00),

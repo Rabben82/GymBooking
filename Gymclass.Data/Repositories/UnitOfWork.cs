@@ -1,4 +1,4 @@
-﻿using GymClass.BusinessLogic.Repositories;
+﻿using GymClass.Core.Repositories;
 using GymClass.Data.Data;
 
 namespace GymClass.Data.Repositories

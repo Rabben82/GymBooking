@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using GymClass.BusinessLogic.Validation;
+using GymClass.Core.Validation;
 
-namespace GymClass.BusinessLogic.Entities
+namespace GymClass.Core.Entities
 {
     public class GymClass
     {

@@ -22,7 +22,7 @@ namespace GymClass.Tests.Repositories
             //Act
             var result = await sut.GetAsync(userId: "expectedUserId", showHistory:true);
             //Assert
-            Assert.IsType<List<BusinessLogic.Entities.GymClass>>(result);
+            Assert.IsType<List<Core.Entities.GymClass>>(result);
         }
 
         [Theory]
@@ -38,7 +38,7 @@ namespace GymClass.Tests.Repositories
             Assert.NotNull(result);
            
             Assert.Equal(gymClassId, result.Id);
-            Assert.IsType<BusinessLogic.Entities.GymClass>(result);
+            Assert.IsType<Core.Entities.GymClass>(result);
             // Add more assertions based on your expected behavior
         }
         //[Theory]

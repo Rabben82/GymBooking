@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Gymclass.Core\GymClass.BusinessLogic.csproj" />
+    <ProjectReference Include="..\Gymclass.Core\GymClass.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

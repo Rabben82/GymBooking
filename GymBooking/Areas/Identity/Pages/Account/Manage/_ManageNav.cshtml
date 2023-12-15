@@ -1,4 +1,4 @@
-﻿@using GymClass.BusinessLogic.Entities
+﻿@using GymClass.Core.Entities
 @inject SignInManager<ApplicationUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
-namespace GymClass.BusinessLogic.Entities
+namespace GymClass.Core.Entities
 {
     public class ApplicationUser : IdentityUser
     {

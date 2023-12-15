@@ -1,8 +1,8 @@
 using GymBooking.WebApp.Extensions;
 using GymBooking.WebApp.Services;
-using GymClass.BusinessLogic.Entities;
-using GymClass.BusinessLogic.Repositories;
-using GymClass.BusinessLogic.Services;
+using GymClass.Core.Entities;
+using GymClass.Core.Repositories;
+using GymClass.Core.Services;
 using GymClass.Data.Data;
 using GymClass.Data.Repositories;
 using Microsoft.AspNetCore.Identity;
