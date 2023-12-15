@@ -1,6 +1,5 @@
 ﻿using System.Security.Claims;
 using GymClass.BusinessLogic.Entities;
-using GymClass.BusinessLogic.Exceptions;
 using GymClass.BusinessLogic.Repositories;
 using GymClass.Data.Data;
 using Microsoft.AspNetCore.Http;
@@ -59,7 +58,7 @@ namespace GymClass.Data.Repositories
         }
         public bool Any(int? id)
         {
-            if (id == null) throw new EntityNotFoundException($"GymClass with id {id} not found");
+           // if (id == null) throw new EntityNotFoundException($"GymClass with id {id} not found");
             return context.GymClasses.Any(i => i.Id == id);
         }
 
@@ -85,21 +84,21 @@ namespace GymClass.Data.Repositories
 
         public async Task<BusinessLogic.Entities.GymClass> BookingToggleAsync(int? id)
         {
-            if (id == null) throw new EntityNotFoundException($"GymClass with id {id} not found");
+           // if (id == null) throw new EntityNotFoundException($"GymClass with id {id} not found");
 
             var gymClass = await context.GymClasses
                 .Include(m => m.AttendingMembers)
                 .FirstOrDefaultAsync(g => g.Id == id);
 
-            if (gymClass == null) throw new EntityNotFoundException($"GymClass entity not found");
+           // if (gymClass == null) throw new EntityNotFoundException($"GymClass entity not found");
 
             // this code is retrieving the unique identifier of the currently authenticated user from the claims in the HTTP context
             var currentUser = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (currentUser == null) throw new EntityNotFoundException($"Current user entity not found");
+           // if (currentUser == null) throw new EntityNotFoundException($"Current user entity not found");
 
             //Is the user already attending
-            var attendingMember = gymClass.AttendingMembers
+            var attendingMember = gymClass!.AttendingMembers
                 .FirstOrDefault(member => member.ApplicationUserId == currentUser);
 
             if (attendingMember == null)
