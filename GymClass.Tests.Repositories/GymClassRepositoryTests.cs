@@ -39,22 +39,8 @@ namespace GymClass.Tests.Repositories
            
             Assert.Equal(gymClassId, result.Id);
             Assert.IsType<Core.Entities.GymClass>(result);
-            // Add more assertions based on your expected behavior
         }
-        //[Theory]
-        //[InlineData(0)]
-        //public async Task BookingToggle_ShouldReturnEntityNotFound(int gymClassId)
-        //{
-        //    //Act && Assert
-        //    //This is an asynchronous assertion using xUnit's Assert.ThrowsAsync method.
-        //    //It is used to assert that the provided asynchronous code (inside the lambda expression)
-        //    //throws a specific exception, in this case, EntityNotFoundException.
-
-        //    //await Assert.ThrowsAsync<EntityNotFoundException>(async () =>
-        //    //{
-        //    //    var result = await sut.BookingToggleAsync(gymClassId);
-        //    //});
-        //}
+ 
         [Theory]
         [InlineData(1)]
         public void Any_ShouldReturnTrueForExistingId(int gymClassId)

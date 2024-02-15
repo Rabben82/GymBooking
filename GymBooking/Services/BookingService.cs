@@ -9,7 +9,7 @@ namespace GymBooking.WebApp.Services
     {
         private readonly ApplicationDbContext context;
 
-        public BookingService(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
+        public BookingService(ApplicationDbContext context)
         {
             this.context = context;
         }
@@ -23,7 +23,9 @@ namespace GymBooking.WebApp.Services
                 var isBooked = await context.GymClasses
                     .AnyAsync(g => g.Id == gymClassId && g.AttendingMembers
                         .Any(m => m.ApplicationUserId == currentUser));
-
+                //var isBooked = await context.ApplicationUsers
+                //    .Where(au => au.AttendingClasses.Contains(gymClassId))
+                //    .AnyAsync();
 
                 return isBooked;
             }

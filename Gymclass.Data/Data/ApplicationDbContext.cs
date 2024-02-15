@@ -12,6 +12,8 @@ namespace GymClass.Data.Data
         {
         }
         public DbSet<Core.Entities.GymClass> GymClasses { get; set; } = default!;
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; } = default!;
+        public DbSet<ApplicationUserGymClass> ApplicationUserGymClasses { get; set; } = default!;
         protected override void OnModelCreating(ModelBuilder builder)
         {
             //Specify the composite primary key for the join table.
