@@ -106,35 +106,35 @@ namespace GymClass.Data.Data
                 new Core.Entities.GymClass
                 {
                     Name = "Box It",
-                    StartTime = new DateTime(2023,12,15, 14,30,0),
+                    StartTime = new DateTime(2024,5,15, 14,30,0),
                     Duration = new TimeSpan(01,00,00),
                     Description = "Rough"
                 },
                 new Core.Entities.GymClass
                 {
                     Name = "Badminton",
-                    StartTime = new DateTime(2023,12,02, 10,00,00),
+                    StartTime = new DateTime(2024,5,02, 10,00,00),
                     Duration = new TimeSpan(01,30,00),
                     Description = "High Intensity"
                 },
                 new Core.Entities.GymClass
                 {
                     Name = "Spinning",
-                    StartTime = new DateTime(2023,12,01, 18,00,00),
+                    StartTime = new DateTime(2024,6,01, 18,00,00),
                     Duration = new TimeSpan(01,00,00),
                     Description = "High Intensity"
                 },
                 new Core.Entities.GymClass
                 {
                     Name = "Body Pump",
-                    StartTime = new DateTime(2023,12,15, 15,00,00),
+                    StartTime = new DateTime(2024,3,15, 15,00,00),
                     Duration = new TimeSpan(00,55,00),
                     Description = "Intense Training"
                 },
                 new Core.Entities.GymClass
                 {
                 Name = "Cross Training",
-                StartTime = new DateTime(2023,12,17, 08,00,00),
+                StartTime = new DateTime(2024,3,17, 08,00,00),
                 Duration = new TimeSpan(00,45,00),
                 Description = "High Intensity Training"
                 }
